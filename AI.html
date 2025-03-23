@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学校教育でたとえる生成AI・機械学習の主要技術用語解説</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=M+PLUS+1+Code:wght@400;700&family=Rajdhani:wght@500;700&family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      /* 紺色基調の未来的デジタルカラースキーム */
+      --primary-dark: #0a2463; /* 深い紺色 - メインカラー */
+      --primary: #1e40af; /* 紺色 - 主要テキスト */
+      --primary-light: #3b82f6; /* 明るい青 - 強調 */
+      --accent: #00b4d8; /* シアン - アクセント */
+      --accent-glow: #90e0ef; /* 光るシアン - 強調効果 */
+      --digital-black: #111827; /* 暗めのブラック - 背景 */
+      --digital-gray: #374151; /* デジタルグレー - サブテキスト */
+      --digital-light: #e2e8f0; /* 明るいグレー - 補助テキスト */
+      --neon-highlight: #38bdf8; /* ネオン青 - ハイライト */
+      --glass-blue: rgba(30, 64, 175, 0.15); /* 半透明の青 - グラスモーフィズム用 */
+      --futuristic-gradient: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--accent)); /* 未来的グラデーション */
+      --digital-grid: repeating-linear-gradient(0deg, var(--glass-blue), var(--glass-blue) 1px, transparent 1px, transparent 20px); /* デジタルグリッド */
+      --tech-glow: 0 0 10px var(--accent-glow); /* 技術的な光彩効果 */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', 'M PLUS 1 Code', 'Rajdhani', 'Exo 2', sans-serif;
+      background-color: var(--digital-black);
+      color: var(--digital-light);
+      line-height: 1.6;
+      padding: 0;
+      overflow-x: hidden;
+      background-image: var(--digital-grid);
+      background-attachment: fixed;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    header {
+      background: var(--primary-dark);
+      padding: 1.5rem 1rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid var(--accent);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(30, 64, 175, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.2) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      color: white;
+      background-image: var(--futuristic-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    h1 i {
+      margin: 0 0.5rem;
+      color: var(--accent);
+      text-shadow: var(--tech-glow);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-weight: 400;
+      position: relative;
+    }
+
+    .subtitle i {
+      margin-right: 0.5rem;
+      color: var(--accent-glow);
+      animation: fa-fade 2s infinite;
+    }
+
+    .ai-term {
+      background: rgba(10, 36, 99, 0.8);
+      border-radius: 8px;
+      margin: 1.5rem 1rem;
+      padding: 1.2rem;
+      position: relative;
+      border: 1px solid var(--primary-light);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+      backdrop-filter: blur(5px);
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .ai-term::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-highlight), transparent);
+      animation: scanline 2s linear infinite;
+    }
+
+    @keyframes scanline {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .term-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .term-icon {
+      font-size: 2rem;
+      margin-right: 0.8rem;
+      color: var(--accent);
+      text-shadow: var(--tech-glow);
+      animation: fa-pulse 3s infinite;
+    }
+
+    .term-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin: 0;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .term-title span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .term-title::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--futuristic-gradient);
+    }
+
+    .term-number {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+      background: rgba(0, 180, 216, 0.2);
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      box-shadow: 0 0 5px var(--accent-glow);
+    }
+
+    .edu-example {
+      background: rgba(30, 64, 175, 0.2);
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-bottom: 0.8rem;
+      position: relative;
+      border-left: 3px solid var(--primary-light);
+    }
+
+    .edu-example::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1));
+      pointer-events: none;
+    }
+
+    .example-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .example-header i {
+      margin-right: 0.5rem;
+      color: var(--accent);
+    }
+
+    .edu-content {
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .highlight {
+      color: var(--neon-highlight);
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight i {
+      margin-right: 0.3rem;
+      font-size: 0.8rem;
+      animation: fa-fade 2s infinite;
+    }
+
+    .highlight::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .algo-explanation, .usage-examples {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 1px dashed var(--primary-light);
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .section-title i {
+      margin-right: 0.5rem;
+      color: var(--primary-light);
+      animation: fa-spin 10s linear infinite;
+    }
+
+    .algo-explanation p, .usage-examples p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .key-points {
+      margin-top: 0.8rem;
+      background: rgba(56, 189, 248, 0.1);
+      border-radius: 8px;
+      padding: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .key-points::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(56, 189, 248, 0.05) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .key-points-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--neon-highlight);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .key-points-title i {
+      margin-right: 0.5rem;
+    }
+
+    .key-point {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .key-point i {
+      color: var(--accent);
+      margin-right: 0.5rem;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .key-point-text {
+      flex-grow: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--digital-gray);
+      background: var(--primary-dark);
+      border-top: 1px solid var(--primary);
+      position: relative;
+      margin-top: 2rem;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-icons i {
+      color: var(--primary-light);
+      font-size: 1.2rem;
+    }
+
+    .connection-line {
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary-light), transparent);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+    }
+
+    /* アイコンのホバーエフェクト */
+    .icon-hover {
+      position: relative;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .icon-hover:hover {
+      transform: scale(1.2);
+      color: var(--neon-highlight) !important;
+      text-shadow: var(--tech-glow);
+    }
+
+    /* テクノロジーコネクション */
+    .tech-connection {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px dashed var(--accent);
+      margin-left: 1rem;
+      font-size: 0.85rem;
+      color: var(--digital-light);
+    }
+
+    .tech-connection::before {
+      content: "\f0ec";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: -12px;
+      top: 0;
+      background: var(--digital-black);
+      color: var(--accent);
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      animation: fa-spin 8s linear infinite;
+      box-shadow: 0 0 5px var(--accent-glow);
+    }
+
+    /* スマートフォン向け最適化 */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+      
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .ai-term {
+        margin: 1.5rem 0.8rem;
+        padding: 1rem;
+      }
+      
+      .term-title {
+        font-size: 1.1rem;
+      }
+      
+      .term-icon {
+        font-size: 1.8rem;
+      }
+      
+      .edu-example, .algo-explanation, .usage-examples, .key-points {
+        padding: 0.7rem;
+      }
+      
+      .edu-content, .algo-explanation p, .usage-examples p {
+        font-size: 0.85rem;
+      }
+      
+      .key-point {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* アニメーションエフェクト */
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px var(--accent-glow); }
+      50% { text-shadow: 0 0 15px var(--accent-glow), 0 0 20px var(--accent); }
+      100% { text-shadow: 0 0 5px var(--accent-glow); }
+    }
+
+    @keyframes data-flow {
+      0% { 
+        background-position: 0% 0%;
+        opacity: 0.8;
+      }
+      100% { 
+        background-position: 100% 100%;
+        opacity: 0.2;
+      }
+    }
+
+    .ai-term:hover .term-icon {
+      animation: glow 1.5s infinite;
+    }
+
+    /* デジタル背景エフェクト */
+    .digital-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(17, 24, 39, 0.97), rgba(17, 24, 39, 0.97)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%233b82f6" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+      background-size: 50px 50px;
+      z-index: -1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="digital-bg"></div>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1><i class="fa-solid fa-microchip fa-beat"></i> 学校教育でたとえる<br>生成AI・機械学習<br>の主要技術用語解説 <i class="fa-solid fa-graduation-cap fa-beat"></i></h1>
+        <p class="subtitle"><i class="fa-solid fa-lightbulb"></i> 教育現場に身近な「学校」や「授業」の例えで理解する AI技術</p>
+      </div>
+    </header>
+
+    <!-- AI（人工知能） -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-building-columns term-icon"></i>
+        <h2 class="term-title"><span>AI（人工知能）</span></h2>
+        <div class="term-number">1</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          「人工知能」は<span class="highlight"><i class="fa-solid fa-building"></i>学校全体</span>に相当します。学校には校長先生、教師、生徒、図書館など様々な役割が集まり知的活動を行います。同様にAIは、コンピューター上で人間の知的活動を再現するための総合的な仕組みで、AIもさまざまな方法で知識を扱い<span class="highlight"><i class="fa-solid fa-server"></i>「知能」を実現するプラットフォーム</span>と考えられます。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          AIは、人間の言語理解や問題解決といった知的なタスクをコンピューターに行わせる技術全般を指します。大きく分けて、ルールベースAI（人間が決めたルールで動くもの）と機械学習AI（データから学習するもの）があります。学校で言えば、前者は教師が細かい校則を定めて生徒に行動させるイメージ、後者は生徒自身が経験から学んで問題を解くイメージです。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          私たちの身近では、AIが搭載された対話システム（スマートスピーカーの音声アシスタント）が質問に答えてくれたり、推薦システムが動画や買い物のおすすめを提示したりしています。教育現場では、AIが生徒一人ひとりの学習データを分析して個別最適化学習を支援したり、テストの自動採点を行ったりする例があります。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-diagram-project"></i>
+          <div class="key-point-text">
+            学校全体＝AIという構図：校舎のイラストをAIになぞらえ、その中に「機械学習クラス」「深層学習クラブ」などがある
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-layer-group"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-school"></i>「AI（人工知能）＝知能を実現する学校」、「機械学習＝学習の授業」</span>という対応関係
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-brain"></i>
+          <div class="key-point-text">
+            AIが包括的な概念で、機械学習や深層学習など下位の技術を含む入れ物である点を強調
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 機械学習 -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-chalkboard-user term-icon"></i>
+        <h2 class="term-title"><span>機械学習（Machine Learning）</span></h2>
+        <div class="term-number">2</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          機械学習は、<span class="highlight"><i class="fa-solid fa-graduation-cap"></i>授業を通じた生徒の学習</span>に相当します。教師が生徒に例題や練習問題を出し、解説やフィードバックを与えることで、生徒は新しい問題を解けるようになります。同じように、機械学習ではコンピューター（モデル）が大量のデータ（教材）からパターンを学習します。つまり生徒＝モデル、<span class="highlight"><i class="fa-solid fa-user-tie"></i>教師＝アルゴリズム（またはデータセットのラベル提供者）</span>、教材＝データという対応関係です。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          機械学習はAIの中核手法で、コンピューターがデータから自動的に規則やパターンを学習する技術です。プログラマーが一つ一つのルールを教え込まなくても、モデルがデータを分析して傾向をつかみ、新しい入力に対して予測や分類ができるようになります。機械学習には大きく3種類あり、正解付きのデータで学ぶ教師あり学習、データの構造を自分で見つける教師なし学習、試行錯誤で報酬を最大化する強化学習に分けられます。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          機械学習の成果は身近なところで活かされています。例えば、メールサービスのスパムフィルターは過去の大量のメールを学習して新規メールの判別を行っています。また、写真から人物や物体を自動で分類する画像認識、音声アシスタントの音声認識なども機械学習モデルの応用です。教育の現場では、生徒のテスト回答データを学習して苦手分野を予測するシステムなどが実証されています。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-users"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-user-graduate"></i>「問題集を解いて学習する生徒」のイラストと「データを学習してモデルを訓練するコンピュータ」</span>の図を並べる
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-list-check"></i>
+          <div class="key-point-text">
+            教師あり・なし・強化学習の違いを<span class="highlight"><i class="fa-solid fa-book"></i>「答え合わせのある練習問題」（教師あり）、「自分で調べる自主学習」（教師なし）、「ゲームでハイスコアを狙う」</span>（強化学習）と関連付ける
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-database"></i>
+          <div class="key-point-text">
+            キーワード：<span class="highlight"><i class="fa-solid fa-chart-line"></i>「データから学ぶ＝自ら経験から学ぶ」</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ディープラーニング -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-layer-group term-icon"></i>
+        <h2 class="term-title"><span>ディープラーニング（Deep Learning）</span></h2>
+        <div class="term-number">3</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          ディープラーニングは、<span class="highlight"><i class="fa-solid fa-stairs"></i>教科の履修を重ねて高度な知識を身につける学習</span>に相当します。例えば、ある教科を小学校→中学校→高校と学ぶうちに、基本から応用へと理解が深まっていくプロセスと似ています。各学年の先生が前年度までの内容を基に新しい知識を教え、最終的に卒業時には専門的な問題も解けるようになる――この「積み上げ」の構造が多層（ディープ）な学習の例えです。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          深層学習は機械学習の一種で、人間の脳神経回路を模したニューラルネットワークを多層に重ねたモデルを使います。従来の機械学習では特徴量を人が設計することも多かったのに対し、ディープラーニングでは多層構造によってコンピューターが自動的にデータの特徴を発見・抽出します。例えば画像認識では、最初の層が画像のピクセルから「線や角」といった初歩的特徴を捉え、中間の層がそれらを組み合わせて「模様」や「部位」を認識し、さらに進んだ層で「人物」「物体」を識別します。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          ディープラーニングの代表例として、画像に写った物体を識別する画像認識AIがあります。例えばスマートフォンの写真アプリが人物や風景を自動で分類できるのは、膨大な画像で訓練された深層学習モデルのおかげです。また、言語のディープラーニングモデルは機械翻訳や文章要約に使われており、人間のような文章生成にも応用されています。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-network-wired"></i>
+          <div class="key-point-text">
+            「層（レイヤー）が深い」ことを視覚的に示すために、学校の学年ピラミッド（小→中→高の三角形）をニューラルネットワークの多層構造に見立てる
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-magnifying-glass-chart"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-robot"></i>「自動で特徴を発見」</span>という点は、教師が教えなくても生徒自ら気付き学ぶ場面をイラストで示す
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-diagram-project"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-layer-group"></i>「タマネギのように層を重ねたネットワーク」と「学年が上がるにつれ難しい内容を習得する生徒」</span>を並べたイラスト
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 強化学習 -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-trophy term-icon"></i>
+        <h2 class="term-title"><span>強化学習（Reinforcement Learning）</span></h2>
+        <div class="term-number">4</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          強化学習は、<span class="highlight"><i class="fa-solid fa-gamepad"></i>生徒がトライアンドエラーで上達する経験学習</span>に相当します。例えば、迷路パズルやゲームを生徒に与えて、自力で解かせるとしましょう。初めは試行錯誤ですが、ゴールにたどり着くと先生から「よくできた！」とシールをもらえる。間違った行動をするとヒントがもらえる。このように<span class="highlight"><i class="fa-solid fa-thumbs-up"></i>成功体験（ご褒美）と失敗体験（ペナルティやフィードバック）</span>を繰り返しながら、生徒が最善の攻略法を身につけていくイメージが強化学習です。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          強化学習は機械学習の一種で、エージェント（学習者）が環境との相互作用を通じて最適な行動方策を学ぶ手法です。具体的には、エージェントがある状態で行動を起こし、その結果環境から与えられる報酬（または罰）をもとに、その行動が良かったかどうかを評価します。エージェントは累積報酬の最大化を目指して試行錯誤を繰り返し、最終的に報酬が最大になるような行動パターン（方策）を学習します。強化学習の有名なアルゴリズムには、<span class="highlight"><i class="fa-solid fa-chess"></i>盤面ゲームで勝利という報酬を最大化するために自己対戦を繰り返したAlphaGo</span>（囲碁AI）などがあります。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          強化学習は、ゲームAIやロボットの制御によく使われています。例えば、囲碁や将棋のAIが自己対戦を繰り返してプロ顔負けの戦略を身につけたり、ロボットが倒れながらも歩行動作を試行錯誤して歩けるようになったりするのは強化学習の成果です。教育分野では知育アプリが子供の反応を見ながら難易度を調整するような適応的学習システムにも応用が検討されています。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-star"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-medal"></i>「ご褒美」と「お仕置き」という言葉を使って、生徒が試行錯誤で学ぶ様子を説明。星のシールをもらって喜ぶ子供（報酬）と間違いを赤ペンで直されて悔しがる子供（ペナルティ）</span>のイラスト
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-arrows-spin"></i>
+          <div class="key-point-text">
+            「試行錯誤を通じて最適解を発見」というポイントを強調し、PDCAサイクルの円を描く
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-robot"></i>
+          <div class="key-point-text">
+            強化学習の構成要素（エージェント、環境、行動、報酬）を、教室の例に置き換えて図示
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAG -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-book-open-reader term-icon"></i>
+        <h2 class="term-title"><span>RAG（検索拡張生成）</span></h2>
+        <div class="term-number">5</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          RAGは、一言でいうと<span class="highlight"><i class="fa-solid fa-magnifying-glass"></i>「調べてから答える」能力</span>です。学校の例で言えば、図書館で本を調べてレポートを書く生徒に相当します。生徒（モデル）が、自分の頭（記憶）だけでなく図書館やインターネット（外部の知識源）から情報を探し出し、それをまとめて回答を作成するイメージです。例えば、生徒が難しい質問に直面したとき、まず図書館で関連する本を検索し、その知識をもとに自分の言葉で回答を書く――これがRAGのアナロジーです。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          RAG（検索拡張生成）は、大規模言語モデル（LLM）などの生成AIに情報検索機能を組み合わせた技術です。具体的には、モデルが解答を生成する前に、<span class="highlight"><i class="fa-solid fa-database"></i>外部データベースや知識ベースから関連情報を検索（Retrieval）し、その情報を参考にして回答を生成（Generation）</span>します。これにより、モデルは自分が学習していない最新の事実や固有の知識を回答に反映でき、<span class="highlight"><i class="fa-solid fa-triangle-exclamation"></i>ハルシネーション（事実無根のそれらしい回答）</span>を減らす手段として注目されています。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          RAGの具体例としては、Bing Chatのような検索エンジン連携型のチャットボットがあります。ユーザーの質問に対し、ウェブ検索で最新情報を取得してから回答することで、常に最新のニュースや事実に基づいた返答を行います。教育分野では、AIチュータが教科書や学術データベースを参照しつつ生徒の質問に答えるシステムが考えられます。<span class="highlight"><i class="fa-solid fa-user-tie"></i>「AI司書」的な使われ方です。RAGにより、「知らないことは調べる」</span>という学習者の基本的姿勢がAIモデルにも備わります。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-book"></i>
+          <div class="key-point-text">
+            図書館＝RAGという例えを前面に出す。本棚やパソコンで調べものをする生徒のイラストと、「検索してから回答するAI」の図を組み合わせる
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          <div class="key-point-text">
+            RAGの処理フローは<span class="highlight"><i class="fa-solid fa-diagram-project"></i>「質問→検索→生成」</span>のステップとして図解
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-lightbulb"></i>
+          <div class="key-point-text">
+            キーワード: 「検索」「知識」「正確性向上」。「AIが自分で百科事典を引くイメージ」
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- トランスフォーマー -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-network-wired term-icon"></i>
+        <h2 class="term-title"><span>トランスフォーマー（Transformer）</span></h2>
+        <div class="term-number">6</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          トランスフォーマーは、クラス全体の発言に同時に耳を傾けて要点を把握する優秀な議長のような存在です。通常、順番に一人ずつ発言を聞くと、後半には前のほうで出た意見を忘れてしまうことがあります。しかし議長役の生徒（Transformer的存在）は、全員の発言内容をメモしつつ、誰がどの話題に触れたかを把握して関連付けることができます。つまり<span class="highlight"><i class="fa-solid fa-eye"></i>全体に注意を向ける（Self-Attention）</span>能力が高いのです。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          Transformerは2017年に提案された深層学習モデルで、自己注意機構（Self-Attention）に基づいて入力全体の中から重要な関係性を抽出する仕組みが特徴です。従来のRNN（リカレントニューラルネットワーク）は系列データを一つ一つ順番に処理していましたが、Transformerは並列的にデータ全体を処理できます。例えば文章処理では、RNNが単語を順繰りに読むのに対し、Transformerは文章中のすべての単語を同時に読み込み、お互いの関連度合い（Attention）を計算します。簡単に言えば、Transformerは<span class="highlight"><i class="fa-solid fa-binoculars"></i>「全体を見渡しながら部分部分に注意を配る」</span>賢いモデルなのです。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          Transformerは現在の大規模言語モデル（LLM）の基盤技術であり、ChatGPTのような高度な対話AIや文章生成AIはTransformerをベースにしています。例えば、ChatGPTが長文の質問に対してもしっかり筋道だった回答を返せるのは、Transformerが長文中の重要ポイントを逃さず捉えているからです。教育の現場でも、Transformerを用いた自動要約ツールが長い文章から要点を抜き出してくれるような応用が考えられます。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-arrows-to-dot"></i>
+          <div class="key-point-text">
+            RNNとの比較を示す。「RNN：順番に処理（一方向に情報伝達）」と「Transformer：全体に注意（双方向に情報参照）」を矢印の流れで図解
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-eye"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-user-graduate"></i>「Attention (注意機構)」</span>というキーワードは教育にもなじみがある。「授業中に教師が全員に目を配り重要発言を拾い上げる＝Attention」
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-arrows-to-circle"></i>教室全体を見渡す先生（Transformer）と、特定の生徒しか見ていない先生（RNN）</span>のイラストを比較
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- リカレントニューラルネットワーク -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-arrow-turn-up term-icon"></i>
+        <h2 class="term-title"><span>リカレントニューラルネットワーク（RNN）</span></h2>
+        <div class="term-number">7</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          RNNは、一人の生徒が文章を一語一語順番に読んで内容を理解しようとする様子によく似ています。例えば長い物語文を読むとき、読み始めの設定や登場人物を覚えておかないと、後半の展開が理解できません。RNNも同様に序盤の情報を保持しながら逐次的に処理しますが、文章が長くなると情報が薄れます。学校での例えでは、<span class="highlight"><i class="fa-solid fa-people-group"></i>「伝言ゲーム」をしている生徒たち</span>にもなぞらえられます。最初の生徒が聞いたメッセージを隣の生徒に伝え、順番に最後の生徒まで伝達していくうちに、メッセージが少しずつ変わったり一部失われたりする――これがRNNの課題の比喩です。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          リカレントニューラルネットワーク（RNN）は、過去の入力に関する内部状態（メモリ）を持ちながら逐次データを処理できるニューラルネットワークです。通常のニューラルネットワークがすべての入力を独立とみなすのに対し、RNNでは<span class="highlight"><i class="fa-solid fa-rotate"></i>「前の時刻の計算結果を次に活かす」再帰的構造</span>を持っています。具体的には、ある時点の入力を処理した出力を次の時点への入力として再利用し、時間的につながりのあるデータに一貫した処理を行います。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          RNNは音声認識や文章生成など時系列データを扱う初期の深層学習モデルとして幅広く活躍しました。たとえば、昔のスマートフォンの予測変換（キーを打つと次に来そうな単語を候補表示する機能）はRNNで実現されていましたし、音声を聞いて文字起こしするシステムもRNNで構築されていました。現在はTransformerに取って代わられた場面が多いものの、逐次処理の考え方自体は人間の直感に近いため教育における説明にも役立ちます。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-arrow-rotate-right"></i>
+          <div class="key-point-text">
+            RNNの構造を示す際は、ループした矢印を用いた図解が有名。「これが記憶を持っていることを表す」と説明
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-memory"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-brain"></i>「過去の情報を活用する」</span>というメリット部分は、黒板に書かれた前の授業内容を見返しながら問題を解く生徒の絵で表現
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-face-confused"></i>
+          <div class="key-point-text">
+            <span class="highlight"><i class="fa-solid fa-triangle-exclamation"></i>「長いと忘れる」</span>デメリットは、生徒の頭上の吹き出しに「えーっと何の話だっけ？」と表現
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 畳み込みニューラルネットワーク -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-filter term-icon"></i>
+        <h2 class="term-title"><span>畳み込みニューラルネットワーク（CNN）</span></h2>
+        <div class="term-number">8</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          CNNは、<span class="highlight"><i class="fa-solid fa-magnifying-glass"></i>虫眼鏡で作品を細かく観察し、特徴を見つけ出す美術の鑑賞法</span>に例えられます。美術の授業で一枚の大きな絵画を鑑賞するとき、いきなり全体を把握するのは難しいので、絵を部分に区切って「この部分には木が描かれている」「ここに人の顔が隠れている」などと小さな範囲ごとに観察していきます。最後にそれら部分情報を組み合わせて「全体の風景はこうだ」と理解します。つまり<span class="highlight"><i class="fa-solid fa-puzzle-piece"></i>「部分を見てから全体を判断する」</span>のがCNN型のアプローチです。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          畳み込みニューラルネットワーク（CNN）は、多層ニューラルネットワークの一種で、主に画像データの特徴抽出と分類に優れた構造を持ちます。CNNの特徴は畳み込み層とプーリング層という特殊な層です。畳み込み層では画像の小領域にフィルタ（カーネル）を適用し、局所的な特徴（エッジ、模様）を検出します。次にプーリング層で、近隣の特徴を統合しデータ量を削減します。これは「多少位置がずれていても同じ特徴とみなす」処理で、例えば画像中の猫が中央にいようと端にいようと、耳や尻尾の特徴を見逃さず認識できるようにします。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          CNNは画像認識の王道として、顔認証、手書き文字認識、医用画像診断など幅広い領域で使われています。例えば、美術の時間に例えたように、写真から特定の物体（猫や犬）を探し当てるAIはCNNで実装されますし、SNSで投稿された写真から自動で不適切な画像を検出するシステムにもCNNが使われています。教育現場では、数学のノートに書いた数式を撮影して計算ミスをチェックするアプリなどの実験的取り組みにも応用されています。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-crop"></i>
+          <div class="key-point-text">
+            CNNの概念図として、画像に小さな窓（フィルタ）を滑らせて特徴を抽出している絵と、「耳・目・鼻などのパーツを検出」という注釈
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-microscope"></i>
+          <div class="key-point-text">
+            拡大鏡で観察する理科実験や部分点を集めて総合評価する採点など、部分観察から全体結論に至る場面のイラスト
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-list-check"></i>
+          <div class="key-point-text">
+            キーワード：<span class="highlight"><i class="fa-solid fa-puzzle-piece"></i>「局所特徴」「フィルタ」「位置ズレに強い」</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生成AI -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-wand-magic-sparkles term-icon"></i>
+        <h2 class="term-title"><span>生成AI（Generative AI）</span></h2>
+        <div class="term-number">9</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          生成AIは、<span class="highlight"><i class="fa-solid fa-pen-fancy"></i>創造的な課題に取り組む生徒</span>に例えられます。例えば、読書感想文の課題で生徒それぞれがオリジナルの文章を書く場面を想像してください。皆、過去に読んだ本の知識や文章表現（学習データ）を頭に蓄えていますが、実際に書く感想文の内容は生徒ごとに新しく生み出されたものです。同様に、生成AIは学習したデータをもとに、新しいコンテンツ（文章や画像など）を生み出すAIです。つまり、<span class="highlight"><i class="fa-solid fa-arrows-left-right"></i>インプット（教材）→想像力・創造力→アウトプット（作品）</span>という人間の学びのサイクルを、AIがデジタルに再現しています。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          生成AI（Generative AI）は、その名の通り新たなデータを生成するAIモデルの総称です。大規模言語モデル（LLM）による文章生成、GAN（敵対的生成ネットワーク）や拡散モデルによる画像生成などが含まれます。これらのモデルは、膨大な訓練データから確率的なパターンを学習し、与えられた入力（プロンプト）に応じてそれらのパターンを組み合わせた出力を作ります。技術的視点では、生成AIにはTransformerベースのモデルや、生成と識別を競わせて学習するGANなど複数の方式がありますが、いずれも<span class="highlight"><i class="fa-solid fa-clone"></i>「学習データに似て非なる新データを創り出す」</span>点で共通しています。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          生成AIはチャットボット（ChatGPT）の登場で一躍脚光を浴び、今では文章作成支援（メールや記事の下書き生成）、画像作成（イラスト自動生成）、音楽作曲、プログラムコード自動生成など幅広い分野で応用されています。教育現場では、作文の添削や例文提示に生成AIを使ったり、教材の自動作成に活用したりする実験が始まっています。生成AIは<span class="highlight"><i class="fa-solid fa-book"></i>要するに、非常に物知りな創作者</span>であり、学校で言えば百科事典を暗記した文才あふれる生徒のようなものです。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-paintbrush"></i>
+          <div class="key-point-text">
+            生成AIのキーコンセプトは<span class="highlight"><i class="fa-solid fa-lightbulb"></i>「新しいものを作る」</span>こと。白紙に向かっているAIロボットのイラストや、空想する生徒の頭に電球マークが付いているイラストを使用
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-diagram-project"></i>
+          <div class="key-point-text">
+            入力と出力の例を示す。「入力：『宇宙をテーマに俳句を作って』→ 出力：生成AIが作った俳句」のように、プロンプトと生成結果を載せる
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-palette"></i>
+          <div class="key-point-text">
+            AIがパレットで色を混ぜて新しい色を作っている絵や、引き出しから色々な辞書を取り出して組み合わせた文章を紡いでいる図など、「要素の組み合わせから新たなアウトプット」というニュアンスのビジュアル
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- エージェント -->
+    <div class="ai-term">
+      <div class="term-header">
+        <i class="fa-solid fa-user-gear term-icon"></i>
+        <h2 class="term-title"><span>エージェント（Agent、AIエージェント）</span></h2>
+        <div class="term-number">10</div>
+      </div>
+      
+      <div class="edu-example">
+        <div class="example-header">
+          <i class="fa-solid fa-school"></i> 学校教育における例え
+        </div>
+        <div class="edu-content">
+          エージェントは、<span class="highlight"><i class="fa-solid fa-user-tie"></i>自律的に動く学級委員や学習アシスタント</span>のような存在です。例えば先生が「明日の遠足の班編成とスケジュール決めておいてね」と学級委員に頼んだとします。学級委員は自分でクラスメイトに声をかけ（環境から情報を集め）、適切に班分けを考え（推論・計画し）、必要があれば先生に確認しつつ（人間とのやり取り）、最終的に班とスケジュールを決定するでしょう。この学級委員が、与えられた目標に向け自主的に判断し行動する「エージェント」の役割を担っています。要するに、エージェントとは<span class="highlight"><i class="fa-solid fa-clipboard-check"></i>「任務を任された自主行動型の存在」</span>です。
+        </div>
+      </div>
+      
+      <div class="algo-explanation">
+        <div class="section-title">
+          <i class="fa-solid fa-gears"></i> アルゴリズムや仕組み
+        </div>
+        <p>
+          AI分野でいうエージェントは、環境を認識し、最適な行動を選択して実行する自律的なプログラムです。エージェントにはセンサー（カメラやマイク、APIを通じた情報取得など）で環境状態を取得し、プランナーやポリシーネットワークで行動を決定し、アクチュエーター（ロボットのモーターやソフトウェア上のアクション）で環境に働きかけ、その結果をまたセンサーで受け取る――というループ構造があります。このループを通じ、エージェントは目標達成まで行動を繰り返します。噛み砕えば、エージェントとは<span class="highlight"><i class="fa-solid fa-brain"></i>「自分で考えて動くAI」</span>であり、ロボットからソフトウェアボットまで幅広く使われる概念です。
+        </p>
+      </div>
+      
+      <div class="usage-examples">
+        <div class="section-title">
+          <i class="fa-solid fa-lightbulb"></i> 活用イメージ
+        </div>
+        <p>
+          AIエージェントの実例としては、家庭用のお掃除ロボットが挙げられます。部屋という環境をセンサーでマッピングし、ゴミを検知して掃除し、バッテリーが減れば充電基地に戻るといった行動を自律的に行います。また、自律走行車も高度なエージェントです。教育現場では、学習支援ロボットが生徒に寄り添って質問に答えたり、一人ひとりの進捗をモニタリングして学習計画を調整したりする試みがなされています。将来的には、校内の雑務を代行する教師アシスタントAIエージェントが登場するかもしれません。
+        </p>
+      </div>
+      
+      <div class="key-points">
+        <div class="key-points-title">
+          <i class="fa-solid fa-clipboard-list"></i> 図解ポイント
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-arrows-spin"></i>
+          <div class="key-point-text">
+            エージェントの説明では、感知→思考→行動のサイクル図を示すと分かりやすい。「環境」を表す円と、その中で「エージェント」がセンサー（目や耳のアイコン）で情報を得て、頭脳アイコンで判断し、手足のアイコンで行動するループ図
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-users-gear"></i>
+          <div class="key-point-text">
+            自主的に働く学級委員や相談対応するスクールカウンセラーAIのイラストを配置し、「目標：クラス運営／生徒支援」「行動：情報収集→対応策実施」と注釈
+          </div>
+        </div>
+        <div class="key-point">
+          <i class="fa-solid fa-list-check"></i>
+          <div class="key-point-text">
+            キーワードは<span class="highlight"><i class="fa-solid fa-robot"></i>「自律」「目標指向」「環境との相互作用」</span>。学校内ロボットの具体例（自律=廊下を巡回、目標指向=落とし物を集める、環境と対話=人に道を譲るなど）
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>AI・機械学習の技術用語を学校教育の例えで解説 © 2025</p>
+      <div class="footer-icons">
+        <i class="fa-solid fa-database icon-hover"></i>
+        <i class="fa-solid fa-code-branch icon-hover"></i>
+        <i class="fa-solid fa-brain icon-hover"></i>
+        <i class="fa-solid fa-robot icon-hover"></i>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // アイコンのアニメーション効果を強化
+    document.querySelectorAll('.term-icon').forEach(icon => {
+      icon.addEventListener('mouseover', () => {
+        icon.style.textShadow = '0 0 15px var(--accent-glow), 0 0 20px var(--accent)';
+        icon.style.transform = 'scale(1.2)';
+      });
+      
+      icon.addEventListener('mouseout', () => {
+        icon.style.textShadow = '';
+        icon.style.transform = '';
+      });
+    });
+
+    // スクロールに連動したアニメーション
+    const aiTerms = document.querySelectorAll('.ai-term');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    aiTerms.forEach(term => {
+      term.style.opacity = 0;
+      term.style.transform = 'translateY(20px)';
+      term.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(term);
+    });
+  </script>
+</body>
+</html>
