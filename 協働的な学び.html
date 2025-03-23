@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>協働学習・協同学習・共働学習・共同学習の違い</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Decol:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FF9800;
+            --tertiary-color: #2196F3;
+            --quaternary-color: #E91E63;
+            --light-color: #f5f5f5;
+            --dark-color: #333333;
+            --accent-color: #FFC107;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kaisei Decol', serif;
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        h1 {
+            font-family: 'Zen Kurenaido', sans-serif;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        h1 i {
+            margin: 0 10px;
+            animation: fa-bounce 2s infinite;
+        }
+        
+        h2 {
+            font-family: 'Yomogi', cursive;
+            font-size: 22px;
+            margin: 25px 0 15px;
+            color: var(--primary-color);
+            border-bottom: 2px dashed var(--primary-color);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        h3 {
+            font-family: 'Zen Kurenaido', sans-serif;
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin: 15px 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 i {
+            margin-right: 8px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .intro {
+            text-align: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+            margin-bottom: 25px;
+        }
+        
+        .intro p {
+            font-family: 'Yomogi', cursive;
+            font-size: 17px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 0 0 0 60px;
+        }
+        
+        .card-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            opacity: 0.8;
+        }
+        
+        .cooperative {
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        .cooperative .card-icon {
+            color: var(--primary-color);
+        }
+        
+        .collaborative {
+            border-top: 5px solid var(--secondary-color);
+        }
+        
+        .collaborative .card-icon {
+            color: var(--secondary-color);
+        }
+        
+        .collective {
+            border-top: 5px solid var(--tertiary-color);
+        }
+        
+        .collective .card-icon {
+            color: var(--tertiary-color);
+        }
+        
+        .co-working {
+            border-top: 5px solid var(--quaternary-color);
+        }
+        
+        .co-working .card-icon {
+            color: var(--quaternary-color);
+        }
+        
+        .comparison {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            background-color: rgba(245,245,245,0.7);
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: scale(1.02);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            flex: 0 0 50px;
+            height: 50px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon i {
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-text h4 {
+            margin-bottom: 5px;
+            font-family: 'Zen Kurenaido', sans-serif;
+            font-size: 17px;
+            color: var(--dark-color);
+        }
+        
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .example h4 {
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example h4 i {
+            margin-right: 8px;
+        }
+        
+        .keyword {
+            background: linear-gradient(120deg, transparent 0%, transparent 40%, rgba(255, 230, 0, 0.4) 40%, rgba(255, 230, 0, 0.4) 60%, transparent 60%, transparent 100%);
+            padding: 0 3px;
+            font-weight: bold;
+        }
+        
+        .connection {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .connection::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, var(--primary-color), var(--secondary-color) 25%);
+            z-index: -1;
+        }
+        
+        .connection span {
+            background-color: white;
+            padding: 0 15px;
+            font-size: 20px;
+            position: relative;
+        }
+        
+        .tips {
+            background-color: #f0f8ff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .tips h2 {
+            color: var(--tertiary-color);
+            border-bottom-color: var(--tertiary-color);
+        }
+        
+        .tip-item {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .tip-item::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--tertiary-color);
+        }
+        
+        .conclusion {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 25px;
+        }
+        
+        .conclusion i {
+            font-size: 40px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            animation: fa-beat 2s infinite;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* アニメーション効果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animated {
+            animation: fadeIn 1s;
+        }
+        
+        .concept-icon {
+            display: inline-block;
+            margin: 0 5px;
+            vertical-align: middle;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .concept-icon:hover {
+            transform: scale(1.3);
+        }
+        
+        .highlight {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+        
+        .highlight::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 7px;
+            background-color: rgba(255, 193, 7, 0.4);
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+        
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 30px 0;
+            border-radius: 2px;
+        }
+        
+        /* スマートフォン用の追加スタイル */
+        @media (max-width: 767px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .feature-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>
+                <i class="fas fa-users fa-bounce"></i>
+                協働・協同・共働・共同学習
+                <i class="fas fa-graduation-cap fa-bounce"></i>
+            </h1>
+            <p>～4つの「きょうどう学習」の違いと活用～</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="intro animated">
+            <p><span class="highlight">主体的・対話的で深い学び</span>を実現するため、生徒同士が協力して学ぶ活動が重視されています。似た言葉の「協働学習」「協同学習」「共働学習」「共同学習」、それぞれの違いと活用法を解説します！</p>
+        </div>
+        
+        <div class="card cooperative animated">
+            <i class="fas fa-handshake card-icon fa-beat"></i>
+            <h2><i class="fas fa-users-gear"></i>協同学習（Cooperative Learning）</h2>
+            <h3><i class="fas fa-quote-left"></i>明確な目標を共有する「協力学習」</h3>
+            <p>小人数のグループ活動を通して、<span class="keyword">メンバー全員が共通の目標を達成する</span>ことを目指す学習方法です。</p>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>特徴</h4>
+                    <p>役割分担や手順が比較的はっきり決まっていて、全員が協力して課題解決に取り組みます。グループ全体の達成度合いで評価します。</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4><i class="fas fa-lightbulb"></i>例え話</h4>
+                <p>サッカーチームやオーケストラのように、役割は異なるが「勝利」や「演奏成功」という共通ゴールに向かって協力するイメージです。</p>
+            </div>
+        </div>
+        
+        <div class="card collaborative animated">
+            <i class="fas fa-people-pulling card-icon fa-flip"></i>
+            <h2><i class="fas fa-comments"></i>協働学習（Collaborative Learning）</h2>
+            <h3><i class="fas fa-quote-left"></i>多様な他者と「共に創る学び」</h3>
+            <p>生徒同士が教え合い学び合う協働的な学びです。探究的な活動に重点があり、<span class="keyword">対等な立場で意見を出し合い、学びを共創</span>していきます。</p>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>特徴</h4>
+                    <p>細かな役割・手順の指定はなく、生徒それぞれが自分なりの課題意識を持ちつつ、対話を通じて新たな知見を生み出すプロセスを重視します。</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4><i class="fas fa-lightbulb"></i>例え話</h4>
+                <p>みんなで一緒にカレーを作るクッキングのイメージ。それぞれが得意な作業を引き受けながら、一つの鍋で美味しいカレーを完成させていきます。</p>
+            </div>
+        </div>
+        
+        <div class="card collective animated">
+            <i class="fas fa-user-group card-icon fa-fade"></i>
+            <h2><i class="fas fa-chalkboard-user"></i>共同学習（Collective Learning）</h2>
+            <h3><i class="fas fa-quote-left"></i>「共に学ぶ」こと自体に価値を置く学習</h3>
+            <p>一般には一緒に学ぶこと全般を指す広い意味で使われます。<span class="keyword">「共に学ぶ場をつくること」自体の価値</span>を強調します。</p>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-people-group"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>特徴</h4>
+                    <p>「人が集まり集団で学ぶこと」が共同学習、「その意義（協力の価値）を理解した上で学ぶもの」が協同学習と位置付けられています。学びの文化や連帯感を重視します。</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4><i class="fas fa-lightbulb"></i>例え話</h4>
+                <p>みんなで同じ空間で勉強会を開いているような状況。「音楽を一緒に楽しむ合奏」という部分に価値を置くイメージです。</p>
+            </div>
+        </div>
+        
+        <div class="card co-working animated">
+            <i class="fas fa-hands-holding-child card-icon fa-shake"></i>
+            <h2><i class="fas fa-school"></i>共働学習（Co-working Learning）</h2>
+            <h3><i class="fas fa-quote-left"></i>学校内外の人と共に取り組む学び</h3>
+            <p><span class="keyword">学校と家庭、地域社会なども含めて共に働く</span>ニュアンスがあります。生徒だけでなく教師や保護者も一緒に学びに関わるスタイルです。</p>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake-angle"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>特徴</h4>
+                    <p>学校内外の多様な人々が学習プロセスに関与します。例えば、教員も学習者として参加したり、親子で協力して調べ学習をしたりする場面です。</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h4><i class="fas fa-lightbulb"></i>例え話</h4>
+                <p>親子クッキングに近いでしょう。子ども同士だけでなくお母さん・お父さんも一緒にエプロンをつけて料理に参加するイメージです。</p>
+            </div>
+        </div>
+        
+        <div class="comparison animated">
+            <h2><i class="fas fa-scale-balanced"></i>4つの学習法の違いと関係性</h2>
+            <p>4つの用語はいずれも<span class="concept-icon"><i class="fas fa-people-group"></i></span><span class="keyword">「他者と共に学ぶ」</span>点で共通していますが、視点や強調点に違いがあります。</p>
+            
+            <div class="connection">
+                <span><i class="fas fa-arrows-left-right"></i> 比較 <i class="fas fa-arrows-left-right"></i></span>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>協同学習</h4>
+                    <p>【協力】して課題解決。例：「みんなで○○を完成させよう」</p>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-people-pulling"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>協働学習</h4>
+                    <p>【協創】新しい知を作り出す。例：「対話を通じて新発見をしよう」</p>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-user-group"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>共同学習</h4>
+                    <p>場の共有に重点。例：「グループで学習しましょう」</p>
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-hands-holding-child"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>共働学習</h4>
+                    <p>大人と子どもの協働。例：「親子で調べ学習」</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="tips animated">
+            <h2><i class="fas fa-clipboard-list"></i>学校現場での活用と指導上の示唆</h2>
+            
+            <div class="tip-item">
+                <h4>使い分けのポイント</h4>
+                <p>授業づくりの際には、「どのような学び合いをさせたいか」を考えて選びましょう。明確な知識習得や問題解決がゴールであれば協同学習、生徒に社会性や対話力を養わせたいなら協働学習が効果的です。</p>
+            </div>
+            
+            <div class="tip-item">
+                <h4>協同学習の指導ポイント</h4>
+                <p>グループの目標と個人の責任を明確に伝えましょう。「みんなで〇〇を達成する、その中であなたは△△を担当する」という形で、互恵的な協力関係を育みます。</p>
+            </div>
+            
+            <div class="tip-item">
+                <h4>協働学習の指導ポイント</h4>
+                <p>話し合いの質を高める支援がポイントです。付箋やホワイトボードを使って全員の意見を見える化するなど、建設的な対話を促す工夫をしましょう。</p>
+            </div>
+            
+            <div class="tip-item">
+                <h4>学び合いの文化醸成</h4>
+                <p>生徒同士が信頼し合い積極的に関わる学級風土が大前提となります。日頃からペアやグループ活動に慣れさせ、小さな協力体験を積み重ねておくと良いでしょう。</p>
+            </div>
+        </div>
+        
+        <div class="conclusion animated">
+            <i class="fas fa-graduation-cap"></i>
+            <p>協働学習・協同学習・共働学習・共同学習は、言葉は紛らわしいものの、「子どもたちが他者と関わり合って学ぶ」という理念を共有しています。教育理論的には細かな定義の差異がありますが、現場ではそれぞれの長所を活かして柔軟に取り入れることが大切です。</p>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-book"></i> 学習指導部通信 <i class="fas fa-calendar"></i> 2025年3月</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>
