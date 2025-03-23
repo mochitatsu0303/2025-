@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>単元内自由進度学習から考える子どもを主語にした個別最適な学び</title>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --accent: #2196F3;
+            --light: #FAFAFA;
+            --dark: #333333;
+            --success: #8BC34A;
+            --info: #03A9F4;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --purple: #9C27B0;
+            --teal: #009688;
+        }
+        
+        body {
+            font-family: 'Zen Kurenaido', sans-serif;
+            color: var(--dark);
+            background-color: #f5f5f5;
+            background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        h1 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 32px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        
+        .date-source {
+            font-size: 14px;
+            color: var(--dark);
+            text-align: right;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .card-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+        
+        h2 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        h3 {
+            font-family: 'Yomogi', cursive;
+            font-size: 18px;
+            color: var(--secondary);
+            margin-top: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 i {
+            margin-right: 8px;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .keyword {
+            font-weight: bold;
+            background: linear-gradient(transparent 60%, rgba(255, 152, 0, 0.3) 40%);
+            padding: 0 2px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .keyword i {
+            margin-right: 4px;
+            font-size: 14px;
+            color: var(--primary);
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding-left: 10px;
+        }
+        
+        .bullet-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .bullet-list li::before {
+            content: "\f0eb";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        
+        .connection {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+        
+        .connection::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(var(--primary), var(--secondary));
+        }
+        
+        .connection::after {
+            content: "\f063";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 7px;
+            bottom: -15px;
+            color: var(--secondary);
+            font-size: 16px;
+            animation: bounce 2s infinite;
+        }
+        
+        .highlight-box {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 3px solid var(--accent);
+        }
+        
+        .speech-bubble::before {
+            content: "\f10d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: white;
+            color: var(--accent);
+            padding: 0 8px;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .data-point {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .data-point i {
+            margin-right: 10px;
+            color: var(--info);
+            font-size: 18px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: rgba(3, 169, 244, 0.1);
+            color: var(--info);
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 14px;
+            margin: 5px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .arrow-connection {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 0;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .arrow-connection i {
+            margin: 0 10px;
+            animation: slide 2s infinite;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .colored-section {
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        
+        .primary-section {
+            background-color: rgba(76, 175, 80, 0.05);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .secondary-section {
+            background-color: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+        }
+        
+        .accent-section {
+            background-color: rgba(33, 150, 243, 0.05);
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes slide {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .icon-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .icon-slide {
+            animation: slide 2s infinite;
+        }
+
+        /* ホバー効果 */
+        .hover-effect {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-effect:hover {
+            transform: scale(1.05);
+            color: var(--primary);
+        }
+        
+        /* フッター */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="title-container">
+                <i class="fas fa-graduation-cap fa-2x" style="color: var(--primary);"></i>
+                <h1>単元内自由進度学習から考える子どもを主語にした個別最適な学び</h1>
+                <i class="fas fa-lightbulb fa-2x" style="color: var(--secondary);"></i>
+            </div>
+            <div class="date-source">
+                <p><i class="far fa-calendar-alt"></i> 令和6年(2024年)12月23日</p>
+                <p><i class="fas fa-university"></i> 教職員支援機構(NITS)主催セミナー</p>
+            </div>
+        </header>
+        
+        <div class="content">
+            <!-- セクション1: セミナー概要 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-info-circle fa-2x icon-pulse"></i></div>
+                <h2><i class="fas fa-chalkboard-teacher"></i> セミナー概要</h2>
+                <p>本セミナーは年間を通じて3回開催されるシリーズの一環であり、<span class="keyword"><i class="fas fa-book-open"></i>単元内自由進度学習</span>を通じて、<span class="keyword"><i class="fas fa-child"></i>子ども主体</span>の学びのあり方を探求しています。</p>
+                
+                <h3><i class="fas fa-users"></i> 発表校と登壇者</h3>
+                <ul class="bullet-list">
+                    <li>静岡県御前崎市立浜岡中学校（栗林先生）</li>
+                    <li>石川県加賀市立庄小学校（野田先生）</li>
+                </ul>
+                
+                <div class="colored-section primary-section">
+                    <h3><i class="fas fa-landmark"></i> コーディネーター</h3>
+                    <ul class="bullet-list">
+                        <li>上智大学教授 奈須正裕先生</li>
+                        <li>東京学芸大学講師 佐野亮子先生</li>
+                    </ul>
+                </div>
+                
+                <div class="speech-bubble">
+                    <p>「子どもたちとどのような学びを作りたいと思っているか」「そのために何を大切にしたいか」について考えながら実践を聞いてみましょう。</p>
+                    <div style="text-align: right;"><small>- 中谷氏（教職員支援機構）</small></div>
+                </div>
+            </div>
+            
+            <!-- セクション2: 単元内自由進度学習の基本概念 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-brain fa-2x icon-pulse"></i></div>
+                <h2><i class="fas fa-puzzle-piece"></i> 単元内自由進度学習の基本概念</h2>
+                
+                <div class="banner">
+                    <i class="fas fa-quote-left"></i> 新しい方法ではなく、理論的背景と膨大な実践がある確立された手法 <i class="fas fa-quote-right"></i>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>子どもは有能である</strong>という信頼
+                        <p><small>環境さえ整えれば子どもは自分で学べる、子どもを信じる覚悟</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>情報の完全開示</strong>
+                        <p><small>学びの全容を子どもと共有し、「隠すものは何もない」という姿勢</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>「1人も取り残さない」</strong>という最上位目標
+                        <p><small>個々の学習ペースや方法の違いを認めながら、全員の学びを保障</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>子どもの学びへの主体的参画</strong>
+                        <p><small>学習内容だけでなく、学習環境や授業設計への子どもの参画</small></p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><i class="fas fa-check-circle"></i> 単元内自由進度学習とは、子どもが<span class="keyword"><i class="fas fa-route"></i>学習の進め方</span>、<span class="keyword"><i class="fas fa-map-marker-alt"></i>場所</span>、<span class="keyword"><i class="fas fa-list-ol"></i>内容</span>、<span class="keyword"><i class="fas fa-sort-numeric-down"></i>順序</span>などを自分で決めて取り組む学習方法です。</p>
+                </div>
+            </div>
+            
+            <!-- セクション3: 浜岡中学校の実践 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-school fa-2x"></i></div>
+                <h2><i class="fas fa-user-graduate"></i> 浜岡中学校の実践（中学校事例）</h2>
+                
+                <div class="colored-section secondary-section">
+                    <h3><i class="fas fa-history"></i> 変革の経緯</h3>
+                    <ul class="bullet-list">
+                        <li>以前は「生徒指導の困難校」として知られていた</li>
+                        <li>令和3年度から「生徒に委ねる授業」の全校実施を開始</li>
+                        <li>当初は教員・保護者からの反対あり</li>
+                    </ul>
+                </div>
+                
+                <h3><i class="fas fa-clipboard-list"></i> 単元内自由進度学習の実施方法</h3>
+                
+                <div class="grid-2">
+                    <div>
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <strong>初回授業</strong>（教員主導）
+                                <p><small>評価基準の提示、単元課題の共有</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <strong>中間授業</strong>（生徒主導）
+                                <p><small>自分の学習方法と計画を立てる、自由な学習活動</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arrow-connection">
+                    <span>生徒が主体的に学ぶ</span> <i class="fas fa-arrow-right icon-slide"></i> <span>教師は支援者</span>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3><i class="fas fa-star"></i> 「教科リーダー」制度</h3>
+                    <p>生徒が「教科係」ではなく「教科リーダー」として自分たちで授業を作る役割を担います。</p>
+                    <div class="data-point">
+                        <i class="fas fa-tasks"></i>
+                        <div>単元テスト予想問題作成、単元計画案の立案、教材・実験道具の作成</div>
+                    </div>
+                </div>
+                
+                <div class="speech-bubble">
+                    <p>「学校の自慢は何か」という質問に10人中9人が「授業」と即答するようになりました。</p>
+                </div>
+            </div>
+            
+            <!-- セクション4: 庄小学校の実践 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-child fa-2x"></i></div>
+                <h2><i class="fas fa-school"></i> 庄小学校の実践（小学校事例）</h2>
+                
+                <div class="colored-section accent-section">
+                    <h3><i class="fas fa-seedling"></i> 「マイプラン学習」の特徴</h3>
+                    <ul class="bullet-list">
+                        <li>全校一斉実施による連帯感の醸成</li>
+                        <li>学期に2回の実施（2学期1回、3学期1回）</li>
+                        <li>校舎全体を学びの場に変換</li>
+                    </ul>
+                </div>
+                
+                <h3><i class="fas fa-laptop"></i> ICTの効果的活用</h3>
+                <div class="data-point">
+                    <i class="fas fa-tablet-alt"></i>
+                    <div>タブレットで受け取る「学習カード」</div>
+                </div>
+                <div class="data-point">
+                    <i class="fas fa-video"></i>
+                    <div>教師の解説動画</div>
+                </div>
+                <div class="data-point">
+                    <i class="fas fa-comments"></i>
+                    <div>児童の説明動画による理解度確認</div>
+                </div>
+                <div class="data-point">
+                    <i class="fas fa-reply-all"></i>
+                    <div>デジタルでのフィードバック</div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3><i class="fas fa-comment-dots"></i> 児童の振り返り例（6年生）</h3>
+                    <p><small>「今日はどうすれば円の面積が求められるのかを考えました。最初は教室で集中してやろうかなと思ったけれど、具体物を見てみないと分からない問題だったので音楽室に行きました。具体物を使って学習するとデジタルでは分からないことが分かりました。...</small></p>
+                </div>
+                
+                <div class="banner">
+                    <i class="fas fa-chart-line"></i> 約80%の児童が「授業を進めるのは先生ではなくて自分だと思いながら学んでいる」
+                </div>
+            </div>
+            
+            <!-- セクション5: 共通する特徴と効果 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-clipboard-check fa-2x"></i></div>
+                <h2><i class="fas fa-check-double"></i> 両校の実践に共通する特徴</h2>
+                
+                <div class="process-step">
+                    <div class="step-number"><i class="fas fa-info"></i></div>
+                    <div class="step-content">
+                        <strong>情報開示の徹底</strong>
+                        <p><small>単元学習前の教材配布、評価基準の公開、進捗状況の可視化</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number"><i class="fas fa-palette"></i></div>
+                    <div class="step-content">
+                        <strong>学習環境のデザイン</strong>
+                        <p><small>オープンスペース活用、デジタル学習環境の整備、具体物との併用</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number"><i class="fas fa-sync"></i></div>
+                    <div class="step-content">
+                        <strong>振り返りによるメタ認知力育成</strong>
+                        <p><small>日々の振り返りと単元終了後の成長・課題の振り返り</small></p>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number"><i class="fas fa-user-tie"></i></div>
+                    <div class="step-content">
+                        <strong>教師の役割転換</strong>
+                        <p><small>「教える」から「環境を整え、見取る」ことへの専門性のシフト</small></p>
+                    </div>
+                </div>
+                
+                <div class="speech-bubble">
+                    <p>「教材を作ったり環境を作ったりしなきゃいけないので、なんで教科書はこうなってるのか、なんで指導量がこうなってるのかを考える機会になる」</p>
+                    <div style="text-align: right;"><small>- 奈須正裕教授</small></div>
+                </div>
+            </div>
+            
+            <!-- セクション6: 教師の専門性再定義 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-user-cog fa-2x"></i></div>
+                <h2><i class="fas fa-chalkboard-teacher"></i> 教師の専門性の再定義</h2>
+                
+                <div class="colored-section primary-section">
+                    <h3><i class="fas fa-drafting-compass"></i> 環境デザイナーとしての教師</h3>
+                    <p>子どもの学びを支える環境をデザインする力の重要性</p>
+                </div>
+                
+                <div class="colored-section secondary-section">
+                    <h3><i class="fas fa-search"></i> 見取る力の向上</h3>
+                    <p>「すごく見取りができるようになった」「1人1人がものすごく見れるようになった」</p>
+                </div>
+                
+                <div class="colored-section accent-section">
+                    <h3><i class="fas fa-users-cog"></i> 若手教員の成長機会</h3>
+                    <p>「単元をベースにしっかりと教材研究をして授業を作る」力の育成</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><i class="fas fa-quote-left"></i> 「発問もしなくていい、次の展開を考えなくていいので、教師のすることは子どもをじっくり見ること、それにつきます」</p>
+                </div>
+            </div>
+            
+            <!-- セクション7: 実践導入のステップ -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chart-line fa-2x"></i></div>
+                <h2><i class="fas fa-shoe-prints"></i> 実践導入のためのステップ</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h3><i class="fas fa-compass"></i> 導入前の準備</h3>
+                        <ul class="bullet-list">
+                            <li>理念の明確化と共有</li>
+                            <li>先進校視察と情報収集</li>
+                            <li>環境整備（学習空間、ICT環境）</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-tasks"></i> 段階的実施</h3>
+                        <ul class="bullet-list">
+                            <li>1時間を委ねる授業から</li>
+                            <li>特定単元・特定教科からの実施</li>
+                            <li>全校一斉の選択肢</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="arrow-connection">
+                    <span>小さな成功体験</span> <i class="fas fa-arrow-right icon-slide"></i> <span>教員・生徒の意識変革</span> <i class="fas fa-arrow-right icon-slide"></i> <span>学校文化の変容</span>
+                </div>
+                
+                <div class="speech-bubble">
+                    <p>「失うものは何もない」という前向きな姿勢で、「なぜやるのか」を繰り返し語りながら進めていくことが大切です。</p>
+                </div>
+            </div>
+            
+            <!-- セクション8: 今日的意義 -->
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-lightbulb fa-2x icon-pulse"></i></div>
+                <h2><i class="fas fa-bullseye"></i> 単元内自由進度学習の今日的意義</h2>
+                
+                <div class="tag"><i class="fas fa-tablet-alt"></i> GIGAスクール構想との親和性</div>
+                <div class="tag"><i class="fas fa-users"></i> 個別最適な学びと協働的な学びの一体的実現</div>
+                <div class="tag"><i class="fas fa-brain"></i> 主体的・対話的で深い学びの実現</div>
+                
+                <div class="colored-section primary-section">
+                    <h3><i class="fas fa-dharmachakra"></i> デジタル時代の新たな可能性</h3>
+                    <p>ICT活用による情報アクセスの拡大と選択肢の多様化</p>
+                    <p>アナログとデジタルの融合による学習体験の深化</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3><i class="fas fa-hand-holding-heart"></i> 子どもの参画と意見表明</h3>
+                    <p>「子どもの参画」「子どもの意見表明」という子ども家庭庁設置後の文脈との接続</p>
+                    <p>「授業って先生がやるのを受けるんじゃないんだという風に変わってしまって、先生と一緒に僕らが作るんだ」</p>
+                </div>
+                
+                <div class="banner">
+                    <i class="fas fa-quote-left"></i> 子どもは有能である - 環境さえ整えれば子どもは自分で学べる <i class="fas fa-quote-right"></i>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-book"></i> 出典: 教職員支援機構(NITS)主催 「令和6年度単元内自由進度学習から考える子どもを主語にした個別最適な学び」セミナー詳細報告</p>
+            <p><i class="fas fa-calendar-alt"></i> 令和6年(2024年)12月23日</p>
+        </footer>
+    </div>
+    
+    <script>
+        // アイコンにホバー効果を追加
+        document.addEventListener('DOMContentLoaded', function() {
+            const icons = document.querySelectorAll('.fas, .far');
+            icons.forEach(icon => {
+                icon.classList.add('hover-effect');
+            });
+        });
+    </script>
+</body>
+</html>
