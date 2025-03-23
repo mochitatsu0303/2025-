@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教育用語の整理</title>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --accent: #2196F3;
+            --light: #f5f5f5;
+            --dark: #333333;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Zen Kurenaido', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 1rem;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            margin-bottom: 2rem;
+            position: relative;
+            border-bottom: 2px dashed var(--primary);
+            padding-bottom: 1rem;
+        }
+        
+        h1 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            padding: 0 1rem;
+            line-height: 1.4;
+        }
+        
+        h1::before, h1::after {
+            content: "\f19d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 0;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        h1::before {
+            left: 0;
+            animation: bounce 2s infinite;
+        }
+        
+        h1::after {
+            right: 0;
+            animation: bounce 2s infinite 0.5s;
+        }
+        
+        .date {
+            font-size: 0.8rem;
+            text-align: right;
+            color: var(--dark);
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+        
+        .intro {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .intro::before {
+            content: "\f0eb";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.2;
+            animation: fade 3s infinite;
+        }
+
+        .term-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: 0 4px 8px var(--shadow);
+            position: relative;
+            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        
+        .term-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .term-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .term-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px dotted var(--secondary);
+            position: relative;
+        }
+        
+        .term-title .icon {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .term-title .icon.fa-shake {
+            animation-duration: 5s;
+        }
+        
+        .term-title .icon.fa-beat {
+            animation-duration: 3s;
+        }
+        
+        .term-title .icon.fa-bounce {
+            animation-duration: 2s;
+        }
+        
+        .term-title h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-family: 'Kaisei Decol', serif;
+            flex-grow: 1;
+        }
+        
+        .term-title .english {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+            margin-top: 0.2rem;
+        }
+        
+        .definition {
+            font-family: 'Yomogi', cursive;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(33, 150, 243, 0.05);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        
+        .definition strong {
+            background: linear-gradient(transparent 60%, rgba(255, 152, 0, 0.4) 40%);
+            padding: 0 2px;
+        }
+        
+        .key-points {
+            margin: 1rem 0;
+        }
+        
+        .point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .point .point-icon {
+            color: var(--accent);
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .point .point-text {
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        
+        .example {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 0.8rem;
+            border-radius: var(--radius);
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        .example::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: -0.5rem;
+            top: -0.5rem;
+            font-size: 1rem;
+            color: var(--primary);
+            background: white;
+            padding: 0.2rem;
+            border-radius: 50%;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-title .icon {
+            margin-right: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .analogy {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(33, 150, 243, 0.1);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        
+        .analogy::before {
+            content: "\f5da";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            color: var(--accent);
+            opacity: 0.3;
+        }
+        
+        .analogy-title {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .analogy-title .icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .arrows {
+            position: relative;
+            padding: 1rem 0;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .arrow {
+            display: inline-block;
+            color: var(--primary);
+            font-size: 2rem;
+            margin: 0 0.5rem;
+            animation: bounce 2s infinite;
+            position: relative;
+        }
+        
+        .arrow:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .arrow:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+        
+        .summary {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(76, 175, 80, 0.15);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        
+        .summary::before {
+            content: "\f0c8";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 50%;
+            top: -1.5rem;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.4;
+        }
+        
+        .summary-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .summary-title .icon {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            animation: fade 3s infinite;
+        }
+        
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .summary-table th, .summary-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px dashed rgba(76, 175, 80, 0.3);
+        }
+        
+        .summary-table th {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--dark);
+        }
+        
+        .summary-table tr:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+        
+        .summary-table td:first-child {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--dark);
+            opacity: 0.7;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        .keyword {
+            font-weight: bold;
+            background: linear-gradient(transparent 60%, rgba(255, 152, 0, 0.4) 40%);
+            padding: 0 2px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .keyword::after {
+            content: attr(data-icon);
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.8rem;
+            margin-left: 0.3rem;
+            color: var(--secondary);
+        }
+        
+        .relationship-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+        
+        .diagram-item {
+            position: relative;
+            padding: 0.8rem 1.2rem;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+        
+        .diagram-item .icon {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .diagram-item:nth-child(1) {
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            color: white;
+        }
+        
+        .diagram-item:nth-child(2) {
+            background: linear-gradient(90deg, #FF9800, #FFC107);
+            color: white;
+        }
+        
+        .diagram-item:nth-child(3) {
+            background: linear-gradient(90deg, #2196F3, #03A9F4);
+            color: white;
+        }
+        
+        .diagram-item:nth-child(4) {
+            background: linear-gradient(90deg, #9C27B0, #E91E63);
+            color: white;
+        }
+        
+        .diagram-item:nth-child(5) {
+            background: linear-gradient(90deg, #F44336, #FF5722);
+            color: white;
+        }
+        
+        .diagram-arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0.2rem 0;
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>教育用語の整理<br>学習方法・学習形態・学習態様・学習モデル・学習方略</h1>
+            <div class="date"><i class="fas fa-calendar-alt"></i> 2025年3月23日</div>
+        </div>
+        
+        <div class="intro">
+            <p>教育の場では「学習方法」「学習形態」「学習態様」「学習モデル」「学習方略」といった用語が使われますが、それぞれ意味やスコープが異なります。これら5つの用語の意味と相互関係を解説します。理解を助けるため、「旅行」にたとえた比喩も交えて考えてみましょう。</p>
+        </div>
+        
+        <div class="term-section" id="learning-model">
+            <div class="term-title">
+                <div class="icon fas fa-map fa-bounce"></div>
+                <div>
+                    <h2>学習モデル</h2>
+                    <div class="english">Learning Model</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                学習プロセス全体の<strong>枠組みや典型的な進行パターン</strong>を示す概念モデル。教育学では特定の理論に基づいた教授・学習の設計図。
+            </div>
+            
+            <div class="key-points">
+                <div class="point">
+                    <div class="point-icon fas fa-graduation-cap"></div>
+                    <div class="point-text">問題解決学習モデル、発見学習モデル、協同学習モデルなど様々なモデルが存在</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-chalkboard-teacher"></div>
+                    <div class="point-text">授業全体を貫くシナリオやシークエンスを定めたもの</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-shapes"></div>
+                    <div class="point-text">学習理論、学習目標、内容、環境、指導法、評価などを統合した包括的な枠組み</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">
+                    <div class="icon fas fa-lightbulb"></div>
+                    教育現場での活用例
+                </div>
+                <p>「ICTを活用した反転学習モデル」であれば「家庭学習で動画視聴→授業で演習」が基本シナリオになる。「プロジェクト型学習モデル」であれば「課題設定→計画→実行→発表→評価」という一連の流れがデザインされる。</p>
+            </div>
+            
+            <div class="analogy">
+                <div class="analogy-title">
+                    <div class="icon fas fa-plane"></div>
+                    旅行にたとえると...
+                </div>
+                <p>旅程（旅行プラン全体）。旅行で言えば「1日目は○○観光、2日目は△△へ移動…」といった大まかな旅程計画。</p>
+            </div>
+        </div>
+        
+        <div class="arrows">
+            <div class="arrow fas fa-chevron-down"></div>
+        </div>
+        
+        <div class="term-section" id="learning-format">
+            <div class="term-title">
+                <div class="icon fas fa-users fa-beat"></div>
+                <div>
+                    <h2>学習形態</h2>
+                    <div class="english">Learning Format/Organization</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                授業における学習活動の<strong>組織形態</strong>。<span class="keyword" data-icon="&#xf0c0;">誰が・どのような単位で学ぶか</span>という学習集団の編成スタイル。
+            </div>
+            
+            <div class="key-points">
+                <div class="point">
+                    <div class="point-icon fas fa-user-graduate"></div>
+                    <div class="point-text">一斉学習（全体指導）：教師がクラス全員を一斉に導く形態</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-user-friends"></div>
+                    <div class="point-text">グループ学習（小集団学習）：数名のグループで協働して学ぶ形態</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-user"></div>
+                    <div class="point-text">個別学習（個人学習）：各学習者がそれぞれ個別に課題に取り組む形態</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">
+                    <div class="icon fas fa-lightbulb"></div>
+                    教育現場での活用例
+                </div>
+                <p>単元の指導計画で「導入は一斉学習で教員が概念説明、展開ではグループ学習で課題解決、まとめで個別学習（振り返りシート記入）」といったように、場面ごとに適した形態をデザインする。</p>
+            </div>
+            
+            <div class="analogy">
+                <div class="analogy-title">
+                    <div class="icon fas fa-users"></div>
+                    旅行にたとえると...
+                </div>
+                <p>旅行形態。一人旅かグループツアーか、ガイド付きツアーなのかバックパックの旅なのか、といった旅行形態の違い。</p>
+            </div>
+        </div>
+        
+        <div class="term-section" id="learning-modality">
+            <div class="term-title">
+                <div class="icon fas fa-brain fa-shake"></div>
+                <div>
+                    <h2>学習態様</h2>
+                    <div class="english">Learning Modality/Style</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                学習活動の<strong>進め方の様相や学習の様式</strong>。学習者の関わり方や学習プロセスの性質を特徴づける言葉。
+            </div>
+            
+            <div class="key-points">
+                <div class="point">
+                    <div class="point-icon fas fa-search"></div>
+                    <div class="point-text">能動的学習（アクティブに手や頭を動かして探究する学習）vs 受動的学習（講義を聞くなど比較的受け身の学習）</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-microscope"></div>
+                    <div class="point-text">探索的な学習態様（試行錯誤しながら発見する学習）vs 演繹的な学習態様（定義や公式から問題を解く学習）</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-comments"></div>
+                    <div class="point-text">協働的な態様（対話や共同作業が中心）vs 個別的な態様（一人ひとりが黙々と取り組む）</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">
+                    <div class="icon fas fa-lightbulb"></div>
+                    教育現場での活用例
+                </div>
+                <p>「生徒が資料を調べ自分の仮説を検証する」という活動は探究的・能動的な学習態様。一方「教師の解説をノートに写す」は受容的・受動的な学習態様。</p>
+            </div>
+            
+            <div class="analogy">
+                <div class="analogy-title">
+                    <div class="icon fas fa-route"></div>
+                    旅行にたとえると...
+                </div>
+                <p>旅のスタイル。綿密に計画を立てた観光旅行なのか、行き当たりばったりの冒険旅行なのかといった違い。</p>
+            </div>
+        </div>
+        
+        <div class="term-section" id="learning-method">
+            <div class="term-title">
+                <div class="icon fas fa-tools fa-beat"></div>
+                <div>
+                    <h2>学習方法</h2>
+                    <div class="english">Learning Method</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                学習者が何かを学ぶ際に用いる<strong>具体的な手段ややり方</strong>。平たく言えば「どうやって学ぶか」という方法論。
+            </div>
+            
+            <div class="key-points">
+                <div class="point">
+                    <div class="point-icon fas fa-book"></div>
+                    <div class="point-text">英単語を覚える学習方法として「単語カードを使う」「語源を調べる」「何度も書いて覚える」など</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-flask"></div>
+                    <div class="point-text">数学で公式を使って問題を解く、理科で実験によって概念を理解する、社会で年表を暗記するなど</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-laptop"></div>
+                    <div class="point-text">授業では「グループでディベートを行う」「課題研究で調査法を用いる」「タブレットで動画教材を視聴する」など</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">
+                    <div class="icon fas fa-lightbulb"></div>
+                    教育現場での活用例
+                </div>
+                <p>授業計画や指導案では、教師は単元や課題に応じて適切な学習方法を設定する。指導案の「学習活動」の欄で記述されたり、指導法として言及されたりする。</p>
+            </div>
+            
+            <div class="analogy">
+                <div class="analogy-title">
+                    <div class="icon fas fa-car"></div>
+                    旅行にたとえると...
+                </div>
+                <p>移動手段。飛行機や電車で移動するか、徒歩で巡るか、現地でレンタカーを使うかといった選択。</p>
+            </div>
+        </div>
+        
+        <div class="term-section" id="learning-strategy">
+            <div class="term-title">
+                <div class="icon fas fa-compass fa-bounce"></div>
+                <div>
+                    <h2>学習方略</h2>
+                    <div class="english">Learning Strategy</div>
+                </div>
+            </div>
+            
+            <div class="definition">
+                「学習効果を高めるための<strong>意識的な工夫</strong>」。簡単に言えば、学習者がより良く学ぶための作戦や策略。
+            </div>
+            
+            <div class="key-points">
+                <div class="point">
+                    <div class="point-icon fas fa-sync"></div>
+                    <div class="point-text">反復方略：何度も書いたり声に出して読んだりする</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-clipboard-check"></div>
+                    <div class="point-text">リハーサル方略：覚えた内容を思い出せるか自分でテストしてみる</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-sitemap"></div>
+                    <div class="point-text">体制化方略：情報を共通点でグループ化したり、図表に整理したりする</div>
+                </div>
+                <div class="point">
+                    <div class="point-icon fas fa-link"></div>
+                    <div class="point-text">精緻化方略：新しい知識を既有知識と関連づけたり、具体例やイメージを付加して覚える</div>
+                </div>
+            </div>
+            
+            <div class="example">
+                <div class="example-title">
+                    <div class="icon fas fa-lightbulb"></div>
+                    教育現場での活用例
+                </div>
+                <p>国語の読解指導で「文章を要約させる」のは要約方略を教えていることになる。理科実験で「結果を表に整理させる」のは体制化方略の指導。教師が「分からないところに印を付けなさい」「自分で問題を作ってごらん」と助言するのも、生徒にメタ認知的方略やリハーサル方略を促している。</p>
+            </div>
+            
+            <div class="analogy">
+                <div class="analogy-title">
+                    <div class="icon fas fa-map-marked-alt"></div>
+                    旅行にたとえると...
+                </div>
+                <p>道具・ナビゲーション。地図やコンパスの使い方、効率の良いルート選択のコツ。旅先で地図やコンパスを使いこなせれば、最短経路を見つけたり迷っても立て直したりできる。</p>
+            </div>
+        </div>
+        
+        <div class="relationship-diagram">
+            <div class="diagram-item">
+                <div class="icon fas fa-map"></div>
+                学習モデル（旅行プラン全体）
+            </div>
+            <div class="diagram-arrow fas fa-angle-down"></div>
+            <div class="diagram-item">
+                <div class="icon fas fa-users"></div>
+                学習形態（旅行形態）
+            </div>
+            <div class="diagram-arrow fas fa-angle-down"></div>
+            <div class="diagram-item">
+                <div class="icon fas fa-brain"></div>
+                学習態様（旅のスタイル）
+            </div>
+            <div class="diagram-arrow fas fa-angle-down"></div>
+            <div class="diagram-item">
+                <div class="icon fas fa-tools"></div>
+                学習方法（移動手段）
+            </div>
+            <div class="diagram-arrow fas fa-angle-down"></div>
+            <div class="diagram-item">
+                <div class="icon fas fa-compass"></div>
+                学習方略（ナビゲーション）
+            </div>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-title">
+                <div class="icon fas fa-clipboard-list"></div>
+                まとめ
+            </div>
+            <p>5つの用語は異なるレベルで学習を捉え、互いに補完し合う関係にあります。学習モデルという全体計画のもと、状況に応じた学習形態を設定し、適切な学習方法で活動を行い、その中で望ましい学習態様（学習者の関わり方）を引き出します。生徒は学習方略という学びを支えるスキルを活用して、その旅路（学習）を主体的に進んでいきます。</p>
+            
+            <table class="summary-table">
+                <tr>
+                    <th>教育用語</th>
+                    <th>意味・特徴</th>
+                    <th>旅行にたとえると</th>
+                </tr>
+                <tr>
+                    <td>学習モデル</td>
+                    <td>学習過程全体の設計図・枠組み</td>
+                    <td>旅程（旅行プラン全体）</td>
+                </tr>
+                <tr>
+                    <td>学習形態</td>
+                    <td>学習者の組織形態（個別・グループ・全体）</td>
+                    <td>旅行形態（一人旅/団体旅行）</td>
+                </tr>
+                <tr>
+                    <td>学習態様</td>
+                    <td>学習活動の様相、学習者の関わり方</td>
+                    <td>旅のスタイル（計画的/冒険的）</td>
+                </tr>
+                <tr>
+                    <td>学習方法</td>
+                    <td>学習内容を身につける具体的手段・技法</td>
+                    <td>移動手段（飛行機/電車/徒歩）</td>
+                </tr>
+                <tr>
+                    <td>学習方略</td>
+                    <td>学習効果を高めるための工夫や戦略</td>
+                    <td>道具・ナビゲーション（地図/コンパス）</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <i class="fas fa-book"></i> 学習指導部通信 <i class="fas fa-chalkboard"></i>
+        </div>
+    </div>
+</body>
+</html>
