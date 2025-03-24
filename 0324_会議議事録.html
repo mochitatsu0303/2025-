@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>長田モデル - グラフィックレコーディング</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --accent: #2196F3;
+            --light: #E8F5E9;
+            --dark: #333333;
+            --info: #03A9F4;
+            --success: #8BC34A;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #DCEDC8 100%);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Zen Kurenaido', 'Yomogi', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            border-bottom: 2px dashed var(--primary);
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 28px;
+            margin: 15px 0;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            padding: 0 10px;
+        }
+        
+        h1 i {
+            margin: 0 10px;
+            animation: fa-bounce 2s infinite;
+        }
+        
+        .date-info {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            color: var(--dark);
+        }
+        
+        .date-info i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        .attendees {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .attendees-title {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .attendees-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .attendee {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .attendee i {
+            margin-right: 5px;
+            color: var(--accent);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .card-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            opacity: 0.8;
+            color: var(--primary);
+        }
+        
+        h2 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            animation: fa-beat 3s infinite;
+        }
+        
+        h3 {
+            font-size: 16px;
+            margin: 15px 0 10px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 i {
+            margin-right: 8px;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 25px;
+        }
+        
+        li::before {
+            content: '\f0a4';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(255, 152, 0, 0.3) 60%);
+            padding: 0 2px;
+            font-weight: bold;
+        }
+        
+        .keyword {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--light);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin: 2px;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .keyword i {
+            margin-right: 5px;
+            font-size: 90%;
+            color: var(--secondary);
+        }
+        
+        .keyword:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .spiral-step {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            border-left: 3px dashed var(--primary);
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .spiral-step::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+        
+        .spiral-step h3 {
+            margin-top: 0;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            margin: 5px 0;
+            color: var(--primary);
+            animation: flow-down 1.5s infinite;
+        }
+        
+        @keyframes flow-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+        
+        .decision-list {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .decision-item {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px dotted var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .decision-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .decision-number {
+            background-color: var(--primary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .decision-text {
+            font-size: 14px;
+        }
+        
+        .model-diagram {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .diagram-layer {
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .diagram-box {
+            background-color: white;
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px auto;
+            width: 80%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .diagram-box i {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        
+        .diagram-box.primary {
+            border-color: var(--primary);
+        }
+        
+        .diagram-box.secondary {
+            border-color: var(--secondary);
+        }
+        
+        .diagram-box.accent {
+            border-color: var(--accent);
+        }
+        
+        .diagram-box.base {
+            border-color: var(--dark);
+        }
+        
+        .connect-arrow {
+            text-align: center;
+            margin: 5px 0;
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .split-boxes {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            gap: 10px;
+        }
+        
+        .split-box {
+            flex: 1;
+            background-color: white;
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .split-box i {
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .split-box.primary {
+            border-color: var(--primary);
+        }
+        
+        .split-box.secondary {
+            border-color: var(--secondary);
+        }
+        
+        .timeline {
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-semester {
+            font-weight: bold;
+            width: 80px;
+            flex-shrink: 0;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        /* アニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+        .card:nth-child(5) { animation-delay: 0.4s; }
+        .card:nth-child(6) { animation-delay: 0.5s; }
+        .card:nth-child(7) { animation-delay: 0.6s; }
+        .card:nth-child(8) { animation-delay: 0.7s; }
+        .card:nth-child(9) { animation-delay: 0.8s; }
+        
+        /* 円グラフのアニメーション */
+        .circle-visual {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+        
+        .circle-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transform-origin: 50% 50%;
+        }
+        
+        .circle-label {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            transform-origin: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap fa-beat"></i>20250324_研究推進会議議事録<i class="fas fa-chalkboard-teacher fa-beat"></i></h1>
+            <div class="date-info">
+                <i class="fas fa-calendar-alt"></i> 2025年3月25日
+            </div>
+            <div class="attendees">
+                <div class="attendees-title">
+                    <i class="fas fa-users me-2"></i> 出席者
+                </div>
+                <div class="attendees-list">
+                    <div class="attendee"><i class="fas fa-user-tie"></i> 持田先生</div>
+                    <div class="attendee"><i class="fas fa-user"></i> 金子先生</div>
+                    <div class="attendee"><i class="fas fa-user"></i> 大澤先生</div>
+                    <div class="attendee"><i class="fas fa-user-graduate"></i> 松村校長</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="card">
+            <i class="fas fa-flag card-icon"></i>
+            <h2><i class="fas fa-bullseye"></i>1. 指定研究の概要</h2>
+            <ul>
+                <li>神戸市教育委員会からの依頼で<span class="keyword"><i class="fas fa-book-open"></i>個別最適な学び</span>と<span class="keyword"><i class="fas fa-users"></i>協働的な学び</span>の一体的充実をテーマとした研究を実施</li>
+                <li>研究期間は<span class="highlight">2025年度から2年間</span></li>
+                <li>従来の知識伝達型から、生徒が主体的に課題を設定し探究する学びへの転換を目指す</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-puzzle-piece card-icon"></i>
+            <h2><i class="fas fa-lightbulb fa-beat"></i>2. 「長田モデル」の中核理念</h2>
+            
+            <div class="model-diagram">
+                <div class="diagram-layer">
+                    <div class="diagram-box primary">
+                        <i class="fas fa-brain"></i>
+                        <strong>深い学び</strong>
+                        <small>(自身の意見や考えの変容が生じる状態)</small>
+                    </div>
+                </div>
+                
+                <div class="connect-arrow">
+                    <i class="fas fa-arrow-up fa-bounce"></i>
+                </div>
+                
+                <div class="diagram-layer">
+                    <div class="split-boxes">
+                        <div class="split-box primary">
+                            <i class="fas fa-user-graduate"></i>
+                            <strong>個別最適な学び</strong>
+                            <small>(自己決定型学習)</small>
+                        </div>
+                        <div class="split-box secondary">
+                            <i class="fas fa-users"></i>
+                            <strong>協働的な学び</strong>
+                            <small>(一斉授業)</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="connect-arrow">
+                    <i class="fas fa-arrows-left-right"></i>
+                    <small>往還</small>
+                </div>
+                
+                <div class="diagram-layer">
+                    <div class="diagram-box accent">
+                        <i class="fas fa-people-group"></i>
+                        <strong>協同的な生徒集団</strong>
+                        <small>(友達に何でも聞ける関係)</small>
+                    </div>
+                </div>
+                
+                <div class="connect-arrow">
+                    <i class="fas fa-arrow-up fa-bounce"></i>
+                </div>
+                
+                <div class="diagram-layer">
+                    <div class="diagram-box base">
+                        <i class="fas fa-building-columns"></i>
+                        <strong>環境</strong>
+                        <small>(教室環境・教職員環境・同僚性)</small>
+                    </div>
+                </div>
+            </div>
+            
+            <p>「<span class="highlight">深い学び</span>」とは、「<span class="keyword"><i class="fas fa-lightbulb"></i>自身の意見や考えの変容が生じる状態</span>」と定義</p>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-sync-alt card-icon fa-spin"></i>
+            <h2><i class="fas fa-route"></i>3. 探究学習のスパイラル</h2>
+            
+            <div class="spiral-step">
+                <h3><i class="fas fa-question-circle"></i>課題設定</h3>
+                <p>生徒自身が興味・関心をもとにテーマを設定</p>
+                <p>単元を貫く問い（例：「電池とは何か」）</p>
+                <p>日常生活と関連付けた課題設定による動機づけ</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            
+            <div class="spiral-step">
+                <h3><i class="fas fa-search"></i>情報収集</h3>
+                <p>多角的な資料から情報を集める</p>
+                <p>自分なりの意見や考えを形成</p>
+                <p><span class="keyword"><i class="fas fa-user"></i>個別学習</span>の形態で実施</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            
+            <div class="spiral-step">
+                <h3><i class="fas fa-chart-pie"></i>整理・分析</h3>
+                <p><span class="keyword"><i class="fas fa-users"></i>グループ活動</span>を中心とした協働的な学び</p>
+                <p>異なる視点からの意見交換</p>
+                <p>新たな気づきや価値の創出</p>
+            </div>
+            
+            <div class="flow-arrow">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            
+            <div class="spiral-step">
+                <h3><i class="fas fa-pen-fancy"></i>まとめ・表現</h3>
+                <p>学習を通じた考えの変容を文章化</p>
+                <p>学習前と学習後の比較による成長の確認</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-user-graduate card-icon"></i>
+            <h2><i class="fas fa-book-open"></i>4. 個別最適な学びと自己決定型学習</h2>
+            
+            <p>名称を「<span class="keyword"><i class="fas fa-history"></i>自由進度学習</span>」から「<span class="keyword"><i class="fas fa-check-circle"></i>自己決定型学習</span>」に変更</p>
+            <ul>
+                <li>「自由」という言葉が誤解を招く可能性があるため</li>
+                <li>「自由に何でもやって良い」ではなく、学習の計画や方法を自己決定することが本質</li>
+            </ul>
+            
+            <h3><i class="fas fa-sliders-h"></i>自己決定型学習における選択の要素</h3>
+            <ul>
+                <li><span class="highlight">進度（速さ）</span>を自分で選べる</li>
+                <li><span class="highlight">学習方法</span>を自分で選べる</li>
+                <li><span class="highlight">内容や時間</span>の使い方も選択可能</li>
+            </ul>
+            
+            <h3><i class="fas fa-exchange-alt"></i>個別最適な学びと協働的な学びの往還</h3>
+            <p>単元内での往還の例として、光合成の単元（4コマ構成）</p>
+            <ul>
+                <li>1コマ目：<span class="keyword"><i class="fas fa-users"></i>協働的な学び</span>（一斉授業）</li>
+                <li>2～3コマ目：<span class="keyword"><i class="fas fa-user-graduate"></i>個別最適な学び</span>（自由進度学習）</li>
+                <li>4コマ目：再び<span class="keyword"><i class="fas fa-users"></i>協働的な学び</span>（一斉授業）</li>
+            </ul>
+            <p>この往還によって学びの深化が促進される</p>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-people-group card-icon"></i>
+            <h2><i class="fas fa-comments"></i>5. 協働的な学びと協同的な生徒集団</h2>
+            
+            <h3><i class="fas fa-handshake"></i>協働的な学びの特徴</h3>
+            <ul>
+                <li>異なる立場や視点からの対等な意見交換</li>
+                <li>単なる教え合いではなく、多様な視点の交流による新たな価値の創出</li>
+                <li>グループ活動を通じた対話的な学びの実現</li>
+            </ul>
+            
+            <h3><i class="fas fa-heart"></i>協同的な生徒集団の形成</h3>
+            <ul>
+                <li><span class="highlight">友達に何でも聞ける関係性</span>の構築</li>
+                <li>民主的な人間関係に基づく集団づくり</li>
+                <li>上下関係を作らない、対等な関係での意見交換</li>
+                <li><span class="keyword"><i class="fas fa-hands-holding"></i>一人も取り残さない</span>包摂的な集団形成</li>
+            </ul>
+            
+            <h3><i class="fas fa-school"></i>協働的な学びを支える環境整備</h3>
+            <ul>
+                <li>教室環境の工夫</li>
+                <li>生徒が所属意識を持てる空間づくり</li>
+                <li>教職員の協働関係の構築</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-brain card-icon"></i>
+            <h2><i class="fas fa-lightbulb fa-beat"></i>6. 「深い学び」の定義と評価</h2>
+            
+            <h3><i class="fas fa-quote-left"></i>「深い学び」の明確な定義</h3>
+            <p class="keyword" style="display:block; text-align:center; padding:10px; font-size:18px;"><i class="fas fa-lightbulb fa-beat"></i>自身の意見や考えの変容が生じる状態</p>
+            <ul>
+                <li>単なる知識獲得ではなく、新たな価値観や気づきを得ること</li>
+                <li>理解の深まりや視点の広がりを実感できること</li>
+            </ul>
+            
+            <h3><i class="fas fa-clipboard-check"></i>評価の基本方針</h3>
+            <ul>
+                <li>学習前と学習後の考え方の変化を「<span class="highlight">変容</span>」として評価</li>
+                <li>「まとめ・表現」段階での振り返りを重視</li>
+                <li>教科の見方・考え方に沿った変容を評価基準とする</li>
+                <li>条件作文などの形式で変容を可視化する方法の開発</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-calendar-alt card-icon"></i>
+            <h2><i class="fas fa-tasks"></i>7. 実施計画</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-semester">1学期</div>
+                    <div class="timeline-content">
+                        <p><strong>2年生</strong>：1～2クラスが自己決定型学習を実施</p>
+                        <p><strong>残りのクラス</strong>：協働的な学びの研究授業を実施</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-semester">2学期</div>
+                    <div class="timeline-content">
+                        <p><strong>1年生</strong>：自由進度学習を実施</p>
+                        <p><strong>3年生</strong>：協働的な学びの研究授業を実施</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-stream"></i>系統的な学びの展開</h3>
+            <ul>
+                <li>1年→2年→3年と段階的に発展させる系統的な学習計画</li>
+                <li>教科や単元の特性に応じた柔軟な実施</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-chalkboard-teacher card-icon"></i>
+            <h2><i class="fas fa-handshake"></i>8. 教職員環境と同僚性の構築</h2>
+            
+            <ul>
+                <li>教師も一人にしない環境づくりの重要性</li>
+                <li><span class="keyword"><i class="fas fa-users"></i>同僚性</span>の醸成による協働的な教職員集団の形成</li>
+                <li>教師間の相談・支援体制の確立</li>
+                <li>教科を超えた協力関係の構築</li>
+                <li>授業公開と相互参観を通じた実践知の共有</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-bullhorn card-icon"></i>
+            <h2><i class="fas fa-comment-dots"></i>9. 教職員への説明と普及方法</h2>
+            
+            <h3><i class="fas fa-thumbs-up"></i>説明の基本方針</h3>
+            <ul>
+                <li><span class="highlight">「シンプルに」「わかりやすく」</span>伝えることを重視</li>
+                <li>情報量を絞り、段階的に理解を深められるよう配慮</li>
+                <li>理論よりも実践例を通じた理解促進を図る</li>
+            </ul>
+            
+            <h3><i class="fas fa-quote-right"></i>効果的な言い回し</h3>
+            <div class="keyword" style="display:block; margin:10px 0; text-align:center;">
+                <i class="fas fa-quote-left"></i> 長田モデルは普通の授業です <i class="fas fa-quote-right"></i>
+            </div>
+            <ul>
+                <li>心理的障壁を下げる表現の工夫</li>
+                <li>「これまでやってきたことを体系化したもの」という位置づけを強調</li>
+            </ul>
+            
+            <h3><i class="fas fa-graduation-cap"></i>研修を通じた理解促進</h3>
+            <ul>
+                <li>講義形式ではなく<span class="highlight">体験型の研修</span>を設計</li>
+                <li>教員自身が長田モデルを体験できる研修方法</li>
+                <li>模範となる授業の公開と振り返り</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <i class="fas fa-check-circle card-icon"></i>
+            <h2><i class="fas fa-clipboard-list"></i>10. 決定事項</h2>
+            
+            <div class="decision-list">
+                <div class="decision-item">
+                    <div class="decision-number">1</div>
+                    <div class="decision-text">長田モデルの中核理念を「環境を基盤とした協同的な生徒集団の構築、個別最適な学びと協働的な学びの往還による深い学びの実現」と定義</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">2</div>
+                    <div class="decision-text">「深い学び」を「自身の意見や考えの変容が生じる状態」と明確に定義</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">3</div>
+                    <div class="decision-text">「自由進度学習」を「自己決定型学習」に名称変更</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">4</div>
+                    <div class="decision-text">1学期の実施計画を確定（2年生:1～2クラスが自己決定型学習、残りは協働的な学びの研究授業）</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">5</div>
+                    <div class="decision-text">2学期の実施計画を確定（1年生:自由進度学習、3年生:協働的な学びの研究授業）</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">6</div>
+                    <div class="decision-text">教職員の同僚性構築を重視した環境整備に取り組む</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">7</div>
+                    <div class="decision-text">民主的な人間関係に基づいた協同的な生徒集団づくりを推進</div>
+                </div>
+                <div class="decision-item">
+                    <div class="decision-number">8</div>
+                    <div class="decision-text">教職員への説明はシンプルに行い、段階的な理解促進を図る</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><i class="fas fa-school"></i> 神戸市立長田中学校 学習指導部 <i class="fas fa-calendar-alt"></i> 2025年3月25日</p>
+        </footer>
+    </div>
+</body>
+</html>
