@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>研究推進指定事業 モバイルインフォグラフィック</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-navy: #0a192f;
+      --secondary-blue: #112240;
+      --accent-blue: #64ffda;
+      --light-blue: #8892b0;
+      --highlight-blue: #57cbff;
+      --text-white: #e6f1ff;
+      --tech-purple: #c792ea;
+      --digital-green: #41b883;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--primary-navy);
+      color: var(--text-white);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--accent-blue);
+      background-color: var(--secondary-blue);
+      background-opacity: 0.8;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    h1 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--accent-blue);
+    }
+    
+    .date {
+      font-size: 0.875rem;
+      color: var(--light-blue);
+    }
+    
+    main {
+      flex-grow: 1;
+      padding: 0.75rem;
+    }
+    
+    .section {
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      background-color: rgba(17, 34, 64, 0.7);
+    }
+    
+    .section-header {
+      padding: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 3px solid var(--accent-blue);
+    }
+    
+    .section-title {
+      display: flex;
+      align-items: center;
+    }
+    
+    .section-icon {
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+      color: var(--accent-blue);
+    }
+    
+    h2 {
+      font-weight: bold;
+    }
+    
+    .section-toggle {
+      color: var(--highlight-blue);
+    }
+    
+    .section-content {
+      padding: 0.75rem;
+      border-top: 1px solid #374151;
+      display: none;
+    }
+    
+    .section-content.active {
+      display: block;
+    }
+    
+    .card {
+      margin-bottom: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      background-color: rgba(10, 25, 47, 0.5);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-icon {
+      font-size: 1.125rem;
+      margin-right: 0.5rem;
+      color: var(--tech-purple);
+    }
+    
+    h3 {
+      font-weight: 600;
+      color: var(--highlight-blue);
+    }
+    
+    .info-box {
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      background-color: var(--secondary-blue);
+      margin-bottom: 0.5rem;
+    }
+    
+    .info-box-border {
+      border: 1px solid var(--accent-blue);
+    }
+    
+    .info-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-icon {
+      margin-right: 0.5rem;
+    }
+    
+    ul {
+      padding-left: 1.25rem;
+      list-style-type: disc;
+    }
+    
+    li {
+      margin-bottom: 0.25rem;
+    }
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    
+    .text-sm {
+      font-size: 0.875rem;
+    }
+    
+    .text-xs {
+      font-size: 0.75rem;
+    }
+    
+    .font-medium {
+      font-weight: 500;
+    }
+    
+    .flex {
+      display: flex;
+    }
+    
+    .items-center {
+      align-items: center;
+    }
+    
+    .items-start {
+      align-items: flex-start;
+    }
+    
+    .justify-center {
+      justify-content: center;
+    }
+    
+    .justify-between {
+      justify-content: space-between;
+    }
+    
+    .space-x-2 > * + * {
+      margin-left: 0.5rem;
+    }
+    
+    .space-y-1 > * + * {
+      margin-top: 0.25rem;
+    }
+    
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    .ml-6 {
+      margin-left: 1.5rem;
+    }
+    
+    .mr-1 {
+      margin-right: 0.25rem;
+    }
+    
+    .mr-2 {
+      margin-right: 0.5rem;
+    }
+    
+    .mr-3 {
+      margin-right: 0.75rem;
+    }
+    
+    .mb-1 {
+      margin-bottom: 0.25rem;
+    }
+    
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .mb-3 {
+      margin-bottom: 0.75rem;
+    }
+    
+    .self-center {
+      align-self: center;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .border-r {
+      border-right: 1px solid #374151;
+    }
+    
+    .flex-1 {
+      flex: 1 1 0%;
+    }
+    
+    .p-1 {
+      padding: 0.25rem;
+    }
+    
+    .p-2 {
+      padding: 0.5rem;
+    }
+    
+    .p-3 {
+      padding: 0.75rem;
+    }
+    
+    .p-4 {
+      padding: 1rem;
+    }
+    
+    .px-1 {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+    
+    .py-1 {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+    
+    .pl-4 {
+      padding-left: 1rem;
+    }
+    
+    .pl-5 {
+      padding-left: 1.25rem;
+    }
+    
+    .border {
+      border-width: 1px;
+    }
+    
+    .rounded {
+      border-radius: 0.25rem;
+    }
+    
+    .rounded-lg {
+      border-radius: 0.5rem;
+    }
+    
+    .w-full {
+      width: 100%;
+    }
+    
+    .w-20 {
+      width: 5rem;
+    }
+    
+    .h-20 {
+      height: 5rem;
+    }
+    
+    .flow-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .flow-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 0.25rem;
+    }
+    
+    .flow-cell {
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.25rem;
+      padding: 0.25rem;
+      background-color: var(--secondary-blue);
+      border: 1px solid var(--digital-green);
+    }
+    
+    .flex-shrink-0 {
+      flex-shrink: 0;
+    }
+    
+    footer {
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--light-blue);
+      background-color: var(--primary-navy);
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="header-content">
+      <h1><i class="fas fa-graduation-cap mr-2"></i>第２回「研究推進指定事業」会議</h1>
+      <div class="date"><i class="fas fa-calendar-alt mr-1"></i> 2024.3.27</div>
+    </div>
+  </header>
+
+  <!-- 基本情報 -->
+  <div class="p-3" style="background-color: rgba(17, 34, 64, 0.8); border-bottom: 1px solid var(--accent-blue);">
+    <h2 class="text-sm font-bold mb-2" style="color: var(--highlight-blue);">
+      <i class="fas fa-info-circle mr-2"></i>基本情報
+    </h2>
+    <ul class="text-xs space-y-2">
+      <li class="flex items-start">
+        <i class="fas fa-clock mt-1 mr-2" style="color: var(--accent-blue);"></i>
+        <div>
+          <span class="font-medium">日時：</span>2024年3月27日(水) 11:10～15:30（12:30～13:10昼休憩）
+        </div>
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-map-marker-alt mt-1 mr-2" style="color: var(--accent-blue);"></i>
+        <div>
+          <span class="font-medium">場所：</span>神戸市立長田中学校
+        </div>
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-users mt-1 mr-2" style="color: var(--accent-blue);"></i>
+        <div>
+          <span class="font-medium">出席者：</span>
+          <ul class="pl-5 list-disc mt-1">
+            <li>持田先生（指導部長）</li>
+            <li>金子先生（教育支援担当）</li>
+            <li>大澤先生（教育評価担当）</li>
+            <li>松村先生（学校長）</li>
+          </ul>
+        </div>
+      </li>
+      <li class="flex items-start">
+        <i class="fas fa-clipboard-list mt-1 mr-2" style="color: var(--accent-blue);"></i>
+        <div>
+          <span class="font-medium">議題：</span>2025年度研究推進指定事業の計画
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <!-- セクション1: 研究推進指定事業の概要 -->
+    <div class="section">
+      <div class="section-header" data-section="0">
+        <div class="section-title">
+          <i class="fas fa-atom section-icon"></i>
+          <h2>研究テーマと概要</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-0-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-lightbulb card-icon"></i>
+            <h3>テーマ</h3>
+          </div>
+          <p>「個別最適な学びと協働的な学びの一体的な充実を図るための深い学びの実現」</p>
+          <div class="flex mt-2">
+            <div class="mr-4">
+              <i class="fas fa-clock mr-1" style="color: var(--light-blue);"></i>
+              <span>2025年度〜2年間</span>
+            </div>
+            <div>
+              <i class="fas fa-building mr-1" style="color: var(--light-blue);"></i>
+              <span>神戸市教育委員会</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-bullseye card-icon"></i>
+            <h3>目的</h3>
+          </div>
+          <ul class="pl-5 space-y-1">
+            <li>授業改善による指導力向上</li>
+            <li>子供たちの深い学びへの到達</li>
+            <li>教職員のキャリア形成</li>
+            <li>教育効果の検証と改善</li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- セクション2: 研究の検証方法 -->
+    <div class="section">
+      <div class="section-header" data-section="1">
+        <div class="section-title">
+          <i class="fas fa-microscope section-icon"></i>
+          <h2>研究の検証方法</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-1-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-flask card-icon"></i>
+            <h3>学力の捉え方</h3>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <div class="info-box" style="border: 1px solid var(--highlight-blue);">
+              <div class="flex items-center">
+                <i class="fas fa-chart-bar mr-2" style="color: var(--highlight-blue);"></i>
+                <span class="font-medium">認知的側面</span>
+              </div>
+              <p class="text-xs ml-6">数値で測れる学力（テスト点数、文章表現）</p>
+            </div>
+            <div class="info-box" style="border: 1px solid var(--tech-purple);">
+              <div class="flex items-center">
+                <i class="fas fa-heart mr-2" style="color: var(--tech-purple);"></i>
+                <span class="font-medium">非認知的側面</span>
+              </div>
+              <p class="text-xs ml-6">数値で測りにくい学力（学びに向かう力、自己調整力）</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-database card-icon"></i>
+            <h3>データ収集方法</h3>
+          </div>
+          <div class="grid-2">
+            <div class="info-box">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-calculator text-xs mr-1" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-xs">認知的・量的</span>
+              </div>
+              <ul class="pl-4 text-xs space-y-1">
+                <li>学力到達度テスト</li>
+                <li>アンケート（選択式）</li>
+                <li>ABC判定</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-file-alt text-xs mr-1" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-xs">認知的・質的</span>
+              </div>
+              <ul class="pl-4 text-xs space-y-1">
+                <li>探究レポート</li>
+                <li>成果物</li>
+                <li>発言記録</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-stopwatch text-xs mr-1" style="color: var(--tech-purple);"></i>
+                <span class="font-medium text-xs">非認知的・量的</span>
+              </div>
+              <ul class="pl-4 text-xs space-y-1">
+                <li>アンケート（選択式）</li>
+                <li>ICT学習ログ</li>
+              </ul>
+            </div>
+            <div class="info-box">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-comments text-xs mr-1" style="color: var(--tech-purple);"></i>
+                <span class="font-medium text-xs">非認知的・質的</span>
+              </div>
+              <ul class="pl-4 text-xs space-y-1">
+                <li>活動観察</li>
+                <li>自由記述</li>
+                <li>ポートフォリオ</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-check-circle card-icon"></i>
+            <h3>評価方法</h3>
+          </div>
+          <div class="info-box">
+            <div class="flex mb-2">
+              <div class="flex-1 text-center px-1 py-1 border-r">
+                <span class="text-xs font-medium" style="color: var(--highlight-blue);">A評価</span>
+                <p class="text-xs">変容＋次の課題</p>
+              </div>
+              <div class="flex-1 text-center px-1 py-1 border-r">
+                <span class="text-xs font-medium" style="color: var(--highlight-blue);">B評価</span>
+                <p class="text-xs">考えの変容あり</p>
+              </div>
+              <div class="flex-1 text-center px-1 py-1">
+                <span class="text-xs font-medium" style="color: var(--highlight-blue);">C評価</span>
+                <p class="text-xs">結果のみ記述</p>
+              </div>
+            </div>
+            <div class="text-center text-xs mt-1">
+              <i class="fas fa-arrow-up mr-1" style="color: var(--digital-green);"></i>
+              <span>ルーブリック表による評価</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- セクション3: 年間計画 -->
+    <div class="section">
+      <div class="section-header" data-section="2">
+        <div class="section-title">
+          <i class="fas fa-calendar-alt section-icon"></i>
+          <h2>年間計画</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-2-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-chart-line card-icon"></i>
+            <h3>2025年度スケジュール</h3>
+          </div>
+          <div class="space-y-2">
+            <div class="info-box rounded-lg">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-leaf text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">1学期</span>
+              </div>
+              <ul class="pl-5 text-xs space-y-1">
+                <li>4月3日：理念・目的・日程共有</li>
+                <li>4月26日：体験型研修</li>
+                <li>5月26日週：第1回授業見学ウィーク</li>
+                <li>6月11日：第1回校内研究授業会</li>
+              </ul>
+            </div>
+            <div class="info-box rounded-lg">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-sun text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">夏季・2学期</span>
+              </div>
+              <ul class="pl-5 text-xs space-y-1">
+                <li>8月20日：夏季研修</li>
+                <li>10月17日週：第2回授業見学ウィーク</li>
+                <li>11月18日：校内授業見学会（1年生）</li>
+                <li>11月19日：第2回校内研究授業会（3年生）</li>
+              </ul>
+            </div>
+            <div class="info-box rounded-lg">
+              <div class="flex items-center mb-1">
+                <i class="fas fa-snowflake text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">3学期</span>
+              </div>
+              <ul class="pl-5 text-xs space-y-1">
+                <li>1月26日週：第3回授業見学ウィーク</li>
+                <li>1月30日：公開研究授業会（1・2年生）</li>
+                <li>3月：1年目研究総括・2年目準備</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-chalkboard-teacher card-icon"></i>
+            <h3>授業研究の実施方法</h3>
+          </div>
+          <ul class="pl-5 text-sm space-y-1">
+            <li>各学期に校内研究授業会を実施</li>
+            <li>授業見学ウィークを各学期に設定</li>
+            <li>構想シートを活用した授業づくり</li>
+            <li>各教科の特性に合わせた長田モデルの実践</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- セクション4: 職員研修計画 -->
+    <div class="section">
+      <div class="section-header" data-section="3">
+        <div class="section-title">
+          <i class="fas fa-users-cog section-icon"></i>
+          <h2>職員研修計画</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-3-content">
+        <div class="space-y-3">
+          <div class="card">
+            <div class="flex items-center mb-1">
+              <i class="fas fa-seedling text-lg mr-2" style="color: var(--tech-purple);"></i>
+              <h3>年度当初の研修</h3>
+            </div>
+            <ul class="pl-5 text-sm">
+              <li>4月3日：指導部報告で研究の概要説明</li>
+              <li>4月26日：長田モデルの体験的研修
+                <ul class="pl-5 text-xs mt-1">
+                  <li>「長田中学校はどんな学校？」をテーマ</li>
+                  <li>課題設定→情報収集→整理分析→まとめ表現</li>
+                  <li>理論よりも実践を通した理解を重視</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="flex items-center mb-1">
+              <i class="fas fa-sun text-lg mr-2" style="color: var(--tech-purple);"></i>
+              <h3>夏休み研修（8月20日）</h3>
+            </div>
+            <ul class="pl-5 text-sm">
+              <li>前半：自由進度学習の実践事例共有</li>
+              <li>後半：評価方法と学びの変容の見取り方</li>
+              <li>1学期の実践振り返りと研修テーマ設定</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="flex items-center mb-1">
+              <i class="fas fa-sitemap text-lg mr-2" style="color: var(--tech-purple);"></i>
+              <h3>学年会・教科会での補足研修</h3>
+            </div>
+            <ul class="pl-5 text-sm">
+              <li>学年会で長田モデルの具体的実践方法を共有</li>
+              <li>教科の特性に応じた探究活動の提案</li>
+              <li>国語科・数学科を中心に量的データ収集方法を検討</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- セクション5: 推進体制と役割分担 -->
+    <div class="section">
+      <div class="section-header" data-section="4">
+        <div class="section-title">
+          <i class="fas fa-sitemap section-icon"></i>
+          <h2>推進体制と役割分担</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-4-content">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-users card-icon"></i>
+            <h3>研究組織体制</h3>
+          </div>
+          <div class="space-y-2">
+            <div class="info-box info-box-border">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mr-2">
+                  <i class="fas fa-user-tie text-xl" style="color: var(--digital-green);"></i>
+                </div>
+                <div>
+                  <div class="font-medium">指導部長（持田先生）</div>
+                  <p class="text-xs">全体統括、研究企画、研究計画、研究報告、職員会資料作成、校内研究会資料作成、公開研究会資料作成、議事録作成や指導部通信による情報共有、授業見学ウィーク調整・視察調整・外部専門家調整</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-box info-box-border">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mr-2">
+                  <i class="fas fa-user-cog text-xl" style="color: var(--digital-green);"></i>
+                </div>
+                <div>
+                  <div class="font-medium">教育支援（金子先生）</div>
+                  <p class="text-xs">思考ツール等を用いた教材研究提案、ICTツール活用提案、職員研修企画</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-box info-box-border">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 mr-2">
+                  <i class="fas fa-user-check text-xl" style="color: var(--digital-green);"></i>
+                </div>
+                <div>
+                  <div class="font-medium">教育評価（大澤先生）</div>
+                  <p class="text-xs">評価方法検討、アンケート内容・収集</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-handshake card-icon"></i>
+            <h3>外部専門家の招聘</h3>
+          </div>
+          <ul class="pl-5 text-sm">
+            <li>藤本裕二先生（武庫川女子大学）：校内研究授業会の指導助言者</li>
+            <li>佐野亮子先生（東京学芸大学）：研修講師</li>
+            <li>神戸市教育委員会担当指導主事との連携</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- セクション6: 今後のアクションプラン -->
+    <div class="section">
+      <div class="section-header" data-section="5">
+        <div class="section-title">
+          <i class="fas fa-rocket section-icon"></i>
+          <h2>今後のアクションプラン</h2>
+        </div>
+        <i class="fas fa-chevron-down section-toggle"></i>
+      </div>
+      <div class="section-content" id="section-5-content">
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-clipboard-check card-icon"></i>
+            <h3>4月までの準備事項</h3>
+          </div>
+          <ul class="pl-5 text-sm space-y-1">
+            <li>年間計画完成（持田先生）</li>
+            <li>4月3日・26日の研修資料準備（持田先生・金子先生）</li>
+            <li>構想シートの雛形作成（金子先生）</li>
+            <li>アンケート内容の検討と準備（大澤先生）</li>
+            <li>ルーブリック表・ポートフォリオシートの雛形作成（大澤先生）</li>
+          </ul>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-tasks card-icon"></i>
+            <h3>学期ごとの取り組み</h3>
+          </div>
+          <div class="space-y-2">
+            <div class="info-box">
+              <div class="flex items-center">
+                <i class="fas fa-leaf text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">1学期</span>
+              </div>
+              <p class="text-xs ml-6">長田モデルの段階的導入、授業見学ウィーク実施、校内研究授業会</p>
+            </div>
+            <div class="info-box">
+              <div class="flex items-center">
+                <i class="fas fa-sun text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">2学期</span>
+              </div>
+              <p class="text-xs ml-6">長田モデルの本格実施、授業見学ウィーク、校内研究授業会</p>
+            </div>
+            <div class="info-box">
+              <div class="flex items-center">
+                <i class="fas fa-snowflake text-sm mr-2" style="color: var(--digital-green);"></i>
+                <span class="font-medium text-sm">3学期</span>
+              </div>
+              <p class="text-xs ml-6">公開研究発表会実施、1年間の成果検証</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-chart-line card-icon"></i>
+            <h3>2年間を見据えた計画</h3>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <div class="info-box">
+              <div class="font-medium mb-1" style="color: var(--digital-green);">1年目</div>
+              <p class="text-xs">長田モデルの定着・実践と検証の繰り返し</p>
+            </div>
+            <i class="fas fa-arrow-down self-center" style="color: var(--light-blue);"></i>
+            <div class="info-box">
+              <div class="font-medium mb-1" style="color: var(--digital-green);">2年目</div>
+              <p class="text-xs">長田モデルの改善と深化、成果の体系化、アーカイブ化と共有</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div class="flex justify-center items-center space-x-2">
+      <i class="fas fa-code"></i>
+      <span>神戸市立長田中学校 研究推進指定事業</span>
+      <i class="fas fa-server"></i>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // セクションのトグル機能
+      const sectionHeaders = document.querySelectorAll('.section-header');
+      
+      sectionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const sectionIndex = this.getAttribute('data-section');
+          const content = document.getElementById(`section-${sectionIndex}-content`);
+          const icon = this.querySelector('.section-toggle');
+          
+          if (content.style.display === 'block') {
+            content.style.display = 'none';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+          } else {
+            content.style.display = 'block';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+          }
+        });
+      });
+      
+      // 最初のセクションを開く
+      const firstSectionHeader = document.querySelector('.section-header');
+      if (firstSectionHeader) {
+        firstSectionHeader.click();
+      }
+    });
+  </script>
+</body>
+</html>
