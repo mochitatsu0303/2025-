@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>長田モデル スライド（モバイル対応版）</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kurenaido&family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #FF9800;
+            --accent: #2196F3;
+            --light: #E8F5E9;
+            --dark: #333333;
+            --info: #03A9F4;
+            --success: #8BC34A;
+            --warning: #FFC107;
+            --danger: #F44336;
+            --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #DCEDC8 100%);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Zen Kurenaido', 'Yomogi', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+        
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        .slide-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--primary);
+            padding-bottom: 15px;
+            position: sticky;
+            top: 0;
+            background: var(--bg-gradient);
+            z-index: 100;
+        }
+        
+        .slide-title {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 22px;
+            margin: 10px 0;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+        
+        .slide-title i {
+            margin: 0 5px;
+            animation: fa-beat 2s infinite;
+        }
+        
+        .slide-number {
+            font-size: 16px;
+            color: var(--secondary);
+            font-weight: bold;
+            padding: 5px 15px;
+            background-color: white;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 5px;
+        }
+        
+        .slide-content {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+        
+        .model-diagram {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px auto;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .diagram-layer {
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .diagram-box {
+            background-color: white;
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 15px 10px;
+            margin: 10px auto;
+            width: 85%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .diagram-box i {
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+        
+        .diagram-box.primary {
+            border-color: var(--primary);
+        }
+        
+        .diagram-box.secondary {
+            border-color: var(--secondary);
+        }
+        
+        .diagram-box.accent {
+            border-color: var(--accent);
+        }
+        
+        .diagram-box.base {
+            border-color: var(--dark);
+        }
+        
+        .connect-arrow {
+            text-align: center;
+            margin: 5px 0;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .split-boxes {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+            gap: 15px;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .split-box {
+            background-color: white;
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .split-box i {
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+        
+        .split-box.primary {
+            border-color: var(--primary);
+        }
+        
+        .split-box.secondary {
+            border-color: var(--secondary);
+        }
+        
+        .spiral-container {
+            display: flex;
+            flex-direction: column;
+            margin: 20px auto;
+            gap: 15px;
+        }
+        
+        .spiral-step {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spiral-step::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .spiral-step h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spiral-step h3 i {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .spiral-step p {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-size: 24px;
+            justify-content: center;
+        }
+        
+        .col-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        
+        h2 {
+            font-family: 'Kaisei Decol', serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            animation: fa-beat 3s infinite;
+            font-size: 22px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 15px 0 10px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            list-style-type: none;
+            padding-left: 25px;
+            font-size: 16px;
+        }
+        
+        li::before {
+            content: '\f0a4';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(255, 152, 0, 0.3) 60%);
+            padding: 0 2px;
+            font-weight: bold;
+        }
+        
+        .keyword {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--light);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin: 2px;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .keyword i {
+            margin-right: 5px;
+            color: var(--secondary);
+        }
+        
+        .big-keyword {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            margin: 15px auto;
+        }
+        
+        .control-arrows {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 100;
+        }
+        
+        .arrow-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: none;
+            -webkit-appearance: none;
+        }
+        
+        .arrow-btn:hover, .arrow-btn:active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .arrow-btn:disabled {
+            background-color: #e0e0e0;
+            color: #a0a0a0;
+            cursor: not-allowed;
+        }
+        
+        .slide-indicators {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .fade-in-1 { animation-delay: 0.1s; }
+        .fade-in-2 { animation-delay: 0.2s; }
+        .fade-in-3 { animation-delay: 0.3s; }
+        .fade-in-4 { animation-delay: 0.4s; }
+
+        @media (min-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            
+            .slide-title {
+                font-size: 28px;
+            }
+            
+            .split-boxes {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .spiral-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .flow-arrow:nth-of-type(1) {
+                grid-column: 2;
+                grid-row: 1;
+                transform: rotate(90deg);
+                justify-self: center;
+                align-self: end;
+            }
+            
+            .flow-arrow:nth-of-type(2) {
+                grid-column: 1;
+                grid-row: 2;
+                transform: rotate(-90deg);
+                justify-self: center;
+                align-self: end;
+            }
+            
+            .flow-arrow:nth-of-type(3) {
+                grid-column: 2;
+                grid-row: 3;
+                transform: rotate(90deg);
+                justify-self: center;
+                align-self: end;
+            }
+            
+            .spiral-step:nth-of-type(1) {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            
+            .spiral-step:nth-of-type(2) {
+                grid-column: 2;
+                grid-row: 2;
+            }
+            
+            .spiral-step:nth-of-type(3) {
+                grid-column: 1;
+                grid-row: 3;
+            }
+            
+            .spiral-step:nth-of-type(4) {
+                grid-column: 2;
+                grid-row: 4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- スライド 1: 長田モデルの中核理念 -->
+        <div class="slide active" id="slide1">
+            <div class="slide-header">
+                <h1 class="slide-title"><i class="fas fa-graduation-cap"></i>長田モデルの中核理念<i class="fas fa-chalkboard-teacher"></i></h1>
+                <div class="slide-number">1 / 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="model-diagram fade-in">
+                    <div class="diagram-layer">
+                        <div class="diagram-box primary">
+                            <i class="fas fa-brain"></i>
+                            <strong>深い学び</strong>
+                            <small>(自身の意見や考えの変容が生じる状態)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-arrow">
+                        <i class="fas fa-arrow-up fa-bounce"></i>
+                    </div>
+                    
+                    <div class="diagram-layer">
+                        <div class="split-boxes">
+                            <div class="split-box primary">
+                                <i class="fas fa-user-graduate"></i>
+                                <strong>個別最適な学び</strong>
+                                <small>(自己決定型学習)</small>
+                            </div>
+                            <div class="split-box secondary">
+                                <i class="fas fa-users"></i>
+                                <strong>協働的な学び</strong>
+                                <small>(一斉授業)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-arrow">
+                        <i class="fas fa-arrows-left-right"></i>
+                        <div style="font-size: 14px; margin-top: 3px;">往還</div>
+                    </div>
+                    
+                    <div class="diagram-layer">
+                        <div class="diagram-box accent">
+                            <i class="fas fa-people-group"></i>
+                            <strong>協同的な生徒集団</strong>
+                            <small>(友達に何でも聞ける関係)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="connect-arrow">
+                        <i class="fas fa-arrow-up fa-bounce"></i>
+                    </div>
+                    
+                    <div class="diagram-layer">
+                        <div class="diagram-box base">
+                            <i class="fas fa-building-columns"></i>
+                            <strong>環境</strong>
+                            <small>(教室環境・教職員環境・同僚性)</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="fade-in fade-in-3" style="text-align: center; font-size: 18px;">「<span class="highlight">深い学び</span>」とは、「<span class="keyword"><i class="fas fa-lightbulb"></i>自身の意見や考えの変容が生じる状態</span>」と定義されます</p>
+            </div>
+        </div>
+        
+        <!-- スライド 2: 長田モデル(一斉授業)の流れ -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h1 class="slide-title"><i class="fas fa-sync-alt fa-spin"></i>長田モデル(一斉授業)の流れ<i class="fas fa-route"></i></h1>
+                <div class="slide-number">2 / 4</div>
+            </div>
+            <div class="slide-content">
+                <h2><i class="fas fa-route"></i>長田モデル(一斉授業)の流れ</h2>
+                
+                <div class="spiral-container">
+                    <div class="spiral-step fade-in">
+                        <h3><i class="fas fa-question-circle"></i>課題設定</h3>
+                        <p>学習目標を問いの形式で示す</p>
+                        <p>日常生活と関連づけた問いならばより良い</p>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="spiral-step fade-in fade-in-1">
+                        <h3><i class="fas fa-search"></i>情報収集</h3>
+                        <p>多角的な資料から学習内容を学ぶ</p>
+                        <p><span class="highlight">自分なりの意見や考えを形成</span></p>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="spiral-step fade-in fade-in-2">
+                        <h3><i class="fas fa-chart-pie"></i>整理・分析</h3>
+                        <p><span class="keyword"><i class="fas fa-users"></i>グループ活動</span>を中心とした協働的な学び</p>
+                        <p>異なる視点からの意見交換</p>
+                        <p>新たな気づきや価値の創出</p>
+                    </div>
+                    
+                    <div class="flow-arrow">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    
+                    <div class="spiral-step fade-in fade-in-3">
+                        <h3><i class="fas fa-pen-fancy"></i>まとめ・表現</h3>
+                        <p>学習を通じた考えの変容を文章化</p>
+                        <p>学習前と学習後の比較による成長の確認</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド 3: 協働的な学びと協同的な生徒集団 -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h1 class="slide-title"><i class="fas fa-people-group"></i>協働的な学びと協同的な生徒集団<i class="fas fa-comments"></i></h1>
+                <div class="slide-number">3 / 4</div>
+            </div>
+            <div class="slide-content">
+                <div class="col-box fade-in">
+                    <h2><i class="fas fa-handshake"></i>協働的な学びの特徴</h2>
+                    <ul>
+                        <li>異なる立場や視点からの対等な意見交換</li>
+                        <li>単なる教え合いではなく、多様な視点の交流による新たな価値の創出</li>
+                        <li>グループ活動を通じた対話的な学びの実現</li>
+                    </ul>
+                    
+                    <h3><i class="fas fa-school"></i>協働的な学びを支える環境整備</h3>
+                    <ul>
+                        <li>教室環境の工夫と生徒が所属意識を持てる空間づくり</li>
+                        <li>教科を超えた協力関係の構築</li>
+                        <li>授業公開と相互参観を通じた実践知の共有</li>
+                    </ul>
+                </div>
+                
+                <div class="col-box fade-in fade-in-1">
+                    <h2><i class="fas fa-heart"></i>協同的な生徒集団の形成</h2>
+                    <ul>
+                        <li><span class="highlight">友達に何でも聞ける関係性</span>の構築</li>
+                        <li>民主的な人間関係に基づく集団づくり</li>
+                        <li>上下関係を作らない、対等な関係での意見交換</li>
+                        <li><span class="keyword"><i class="fas fa-hands-holding"></i>一人も取り残さない</span>包摂的な集団形成</li>
+                        <li>行事や日々の授業を通じた継続的な関係構築</li>
+                    </ul>
+                    
+                    <div class="keyword big-keyword fade-in fade-in-2">
+                        <i class="fas fa-quote-left"></i> 協同的な生徒集団が学びの土台となる <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライド 4: 深い学びの定義と評価 -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h1 class="slide-title"><i class="fas fa-brain"></i>深い学びの定義と評価<i class="fas fa-clipboard-check"></i></h1>
+                <div class="slide-number">4 / 4</div>
+            </div>
+            <div class="slide-content">
+                <h2><i class="fas fa-lightbulb fa-beat"></i>「深い学び」の明確な定義</h2>
+                
+                <div class="keyword big-keyword fade-in" style="display:block; text-align:center; padding: 15px;">
+                    <i class="fas fa-lightbulb fa-beat"></i> 
+                    <span style="font-size: 18px; margin: 0 5px;">自身の意見や考えの変容が生じる状態</span>
+                </div>
+                
+                <div class="col-box fade-in fade-in-1">
+                    <h3><i class="fas fa-quote-left"></i>深い学びの本質</h3>
+                    <ul>
+                        <li>単なる知識獲得ではなく、新たな価値観や気づきを得ること</li>
+                        <li>理解の深まりや視点の広がりを実感できること</li>
+                        <li>学習前と学習後で考え方に変化が生じること</li>
+                    </ul>
+                </div>
+                
+                <div class="col-box fade-in fade-in-2">
+                    <h3><i class="fas fa-clipboard-check"></i>評価の基本方針</h3>
+                    <ul>
+                        <li>学習前と学習後の考え方の変化を「<span class="highlight">変容</span>」として評価</li>
+                        <li>「まとめ・表現」段階での振り返りを重視</li>
+                        <li>教科の見方・考え方に沿った変容を評価基準とする</li>
+                        <li>条件作文などの形式で変容を可視化する方法の開発</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- コントロールボタン -->
+        <div class="control-arrows">
+            <button class="arrow-btn prev-btn" onclick="prevSlide()" disabled><i class="fas fa-chevron-left"></i></button>
+            <button class="arrow-btn next-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <!-- スライドインジケーター -->
+        <div class="slide-indicators">
+            <div class="indicator active" onclick="goToSlide(0)"></div>
+            <div class="indicator" onclick="goToSlide(1)"></div>
+            <div class="indicator" onclick="goToSlide(2)"></div>
+            <div class="indicator" onclick="goToSlide(3)"></div>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function showSlide(n) {
+            // スクロール位置をリセット
+            window.scrollTo(0, 0);
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[n].classList.add('active');
+            indicators[n].classList.add('active');
+            
+            prevBtn.disabled = n === 0;
+            nextBtn.disabled = n === slides.length - 1;
+            
+            currentSlide = n;
+        }
+        
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+        
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+        
+        function goToSlide(n) {
+            showSlide(n);
+        }
+        
+        // スワイプナビゲーション
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide(); // 左スワイプ
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide(); // 右スワイプ
+            }
+        }
+        
+        // スライド内部でのスクロールを許可するための設定
+        document.addEventListener('touchmove', function(e) {
+            // タッチでのスクロールを許可
+        }, { passive: true });
+    </script>
+</body>
+</html>
